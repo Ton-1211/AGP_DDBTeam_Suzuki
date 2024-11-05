@@ -17,7 +17,7 @@ public class PlayerHeadMoveScript : MonoBehaviour
     public IEnumerator MoveHead(Vector3 start, Vector3 end, GameObject changeObj)
     {
         transform.LookAt(end);
-        //ChangeCameraTarget(transform);
+        ChangeCameraTarget(transform);
 
         float totalTime = Vector3.Distance(start, end) / moveSpeed;
         float timer = 0f;
@@ -31,7 +31,7 @@ public class PlayerHeadMoveScript : MonoBehaviour
             yield return null;
         }
         change.ChangeCameraTarget(changeObj);
-        //ChangeCameraTarget(change.gameObject.transform);
+        //ChangeCameraTarget(change.transform);
         Destroy(gameObject);
     }
 
