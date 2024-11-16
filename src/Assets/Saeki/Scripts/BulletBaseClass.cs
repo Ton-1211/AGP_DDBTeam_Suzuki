@@ -24,10 +24,10 @@ public class BulletBaseClass : MonoBehaviour
             Forward = transform.forward;
         }
         Forward.Normalize();
-        Quaternion look = Quaternion.LookRotation(Forward);
+        Quaternion look = Quaternion.LookRotation(-Forward);
         transform.rotation = look * Quaternion.Euler(90, 0, 0);
 
-        rb.AddForce(Forward * BulletPower, ForceMode.Impulse);
+        //rb.AddForce(Forward * BulletPower, ForceMode.Impulse);
 
     }
 
@@ -41,6 +41,9 @@ public class BulletBaseClass : MonoBehaviour
             DestroyTime = 0f;
             Destroy(this.gameObject);
         }
+
+        float deltaTime = tag == "PlayerBullet" ? Time.unscaledDeltaTime : Time.deltaTime;// プレイヤーの弾はスロー中でも飛び方を変えない
+        transform.Translate(transform.forward * BulletPower * deltaTime);
     }
     private void OnTriggerEnter(Collider other)
     {
