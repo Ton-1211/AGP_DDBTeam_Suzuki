@@ -16,7 +16,6 @@ public class PlayerRay : MonoBehaviour
     PlayerMove playerMove;
     bool shoot;
     Vector3 rayHitPosition;
-    Animator playerAnimator;
 
     public bool Shoot
     {
@@ -28,7 +27,7 @@ public class PlayerRay : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start() 
+    void Start()
     {
         playerMove = FindObjectOfType<PlayerMove>();
         shoot = false;
@@ -45,7 +44,7 @@ public class PlayerRay : MonoBehaviour
         playerMove.Gun.transform.forward = rayDirection;
 
         Ray playerGaze = new Ray(rayStartPosition, rayDirection);
-        if(Physics.Raycast(playerGaze, out RaycastHit hit, distance, gazeHitMask))
+        if (Physics.Raycast(playerGaze, out RaycastHit hit, distance, gazeHitMask))
         {
             rayHitPosition = hit.transform.position;
         }
@@ -53,9 +52,12 @@ public class PlayerRay : MonoBehaviour
         {
             rayHitPosition = transform.position + rayDirection * distance;
         }
+
+        TargetManeger.PlayerStatus.CharacterAnimator.SetInteger("WeaponCategory", (int)playerMove.Gun.WeaponType);
+        TargetManeger.PlayerStatus.CharacterAnimator.SetBool("AmmoKeep", playerMove.Gun.RemainBullets > 0);
     }
 
-    public GameObject GetObj(){ return game; }
+    public GameObject GetObj() { return game; }
 
     public void Change(InputAction.CallbackContext context)
     {
@@ -88,15 +90,13 @@ public class PlayerRay : MonoBehaviour
 
             Debug.DrawRay(rayStartPosition, rayDirection * distance, Color.red);
 
-            if (Physics.Raycast(rayStartPosition, rayDirection, out raycastHit, distance) && raycastHit.collider.tag == "Enemy")
+            if (Physics.Raycast(rayStartPosition, rayDirection, out raycastHit, distance)/* && raycastHit.collider.tag == "Enemy"*/)
             {
-                if (!raycastHit.transform.GetComponent<CharacterStatus>().CanPossess) return;// 乗り移れるかどうか
+                if (!raycastHit.transform.TryGetComponent<CharacterStatus>(out CharacterStatus status) && status.CanPossess) return;// 乗り移れるかどうか
                 game = raycastHit.collider.gameObject;
                 change.ChangeEnemy(game);
-                if (TargetManeger.getPlayerObj().TryGetComponent<Animator>(out playerAnimator))
-                {
-                    playerAnimator.SetBool("Change", true);
-                }
+
+                TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", true);
             }
         }
     }
@@ -107,10 +107,16 @@ public class PlayerRay : MonoBehaviour
         {
             // PlayerMoveに飛ばして弾を出す
             playerMove.Gun.Shoot(transform.position, playerMove.Gun.transform.forward, "Player", false);
-            if(!shoot)
+            if (!shoot)
             {
                 StartCoroutine(SetShootTrueForSeconds(0.2f));
+                // Animatorに渡す
+                TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", true);
             }
+        }
+        if(context.phase == InputActionPhase.Canceled)
+        {
+            TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", false);
         }
     }
 
@@ -145,7 +151,7 @@ public class PlayerRay : MonoBehaviour
                 }
             }
         }
-        if(context.phase == InputActionPhase.Canceled)
+        if (context.phase == InputActionPhase.Canceled)
         {
             transforms = null;
             game = null;
@@ -158,4 +164,11 @@ public class PlayerRay : MonoBehaviour
         yield return new WaitForSeconds(second);
         shoot = false;
     }
+
+    //void SetAnimator()
+    //{
+    //    if (playerAnimator != null && playerAnimator.gameObject != null &&
+    //        playerAnimator.gameObject == TargetManeger.getPlayerObj()) return;// きちんと設定されている（変更がない）なら再取得しない
+    //    TargetManeger.getPlayerObj().TryGetComponent<Animator>(out playerAnimator);
+    //}
 }

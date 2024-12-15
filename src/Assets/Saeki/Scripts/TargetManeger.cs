@@ -8,6 +8,7 @@ public class TargetManeger : MonoBehaviour
 {
     private static List<EnemyBaseClass> Enemy = new List<EnemyBaseClass>();
     private static GameObject playerObject;
+    private static CharacterStatus playerStatus;
     private static float TimeCount = 0;
 
     [SerializeField] private static float Interval = 3f;
@@ -18,6 +19,8 @@ public class TargetManeger : MonoBehaviour
     /// </summary>
     /// <returns>プレイヤーのオブジェクト</returns>
     public static GameObject getPlayerObj() { return playerObject; }
+
+    public static CharacterStatus PlayerStatus { get { return playerStatus; } }
 
     /// <summary>
     /// staticで宣言されたGetメゾット
@@ -34,6 +37,7 @@ public class TargetManeger : MonoBehaviour
     void Start()
     {
         playerObject = GameObject.FindWithTag("Player");
+        playerStatus = playerObject.GetComponent<CharacterStatus>();
         GameObject[] onFieldEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         TimeCount = 0;
         foreach (GameObject g in onFieldEnemy)
@@ -47,7 +51,7 @@ public class TargetManeger : MonoBehaviour
 
     private void TimeScaleManagement()
     {
-        if (Time.timeScale == 1f || Time.timeScale == 0f)
+        if (Time.timeScale == 1f || Time.timeScale == 0f || Time.timeScale == 0.1f)
             return;
 
         TimeCount += Time.unscaledDeltaTime;
@@ -62,7 +66,7 @@ public class TargetManeger : MonoBehaviour
     public static void StartHeadChange()
     {
         TimeCount = 0;
-        Time.timeScale = 1f;
+        Time.timeScale = 0.1f;
     }
 
     /// <summary>
@@ -78,6 +82,7 @@ public class TargetManeger : MonoBehaviour
     public static void SetTarget(GameObject player)
     {
         playerObject = player;
+        playerStatus = playerObject.GetComponent<CharacterStatus>();
         TimeCount = 0;
         Time.timeScale = 0.2f;
         ChangeTarget();

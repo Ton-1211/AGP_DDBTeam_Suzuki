@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  targetManeger: {fileID: 0}
+  gunsUI: {fileID: 0}
   enemyManager: {fileID: 0}
   playerHead: {fileID: 803069257547464494, guid: 06eb8197c10e2b5489cce32b0c6c113d, type: 3}
 --- !u!114 &7798916664690224374
@@ -388,7 +388,6 @@ GameObject:
   - component: {fileID: 969805264884533920}
   - component: {fileID: 8507831618923986097}
   - component: {fileID: 5195292325974219633}
-  - component: {fileID: 4861433684283563398}
   - component: {fileID: 5322033919379864063}
   m_Layer: 0
   m_Name: Gun
@@ -427,7 +426,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5406266281850979440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -462,27 +461,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4861433684283563398
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5406266281850979440}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5322033919379864063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df767222f9fd33642b9088e8bd9d402b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: f6231f3848afadb4bad2a094441b2c13, type: 2}
+  weaponData: {fileID: 11400000, guid: 35f2ee39b40fd964bbdc3b1b423a789b, type: 2}
   firstShotIntarval: 2
   defaultShotIntarval: 0.5
 --- !u!1001 &502274591611250272
@@ -1203,7 +1181,7 @@ Animator:
   m_GameObject: {fileID: 736648350379301681}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 730584c29e62d46498d405871611c3e3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 27265044799fd314eb17d2670c7e0f72, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 7949672294580822145, guid: db01b1c9c15768b40baef75dd599d3ad, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 32369cb3e30a54f41a28090b7f90e77d, type: 2}
+      objectReference: {fileID: 9100000, guid: 4f881c0e429454c44941ee5b6bc2f519, type: 2}
     - target: {fileID: 8315124958433852217, guid: db01b1c9c15768b40baef75dd599d3ad, type: 3}
       propertyPath: m_Name
       value: EnemyWithModel_ChaseDiscovery Variant

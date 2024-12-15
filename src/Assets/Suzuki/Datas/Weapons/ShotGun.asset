@@ -30,5 +30,6 @@ MonoBehaviour:
   - diffusion: {x: 0.4, y: -0.6}
     randomNess: 0
   weaponRole: 0
+  weaponType: 2
   weaponImage: {fileID: 21300000, guid: bc3ab62b61c6c3d4a9046ba246881487, type: 3}
   subWeapon: {fileID: 3993766834917909290, guid: 03f82252fc4ff8340936cdb188a204da, type: 3}

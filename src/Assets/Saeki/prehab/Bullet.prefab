@@ -152,6 +152,7 @@ MonoBehaviour:
   BulletPower: 80
   rb: {fileID: -2397765559653570604}
   bulletData: {fileID: 11400000, guid: eee7d5ba61c5f9849a157a03244435c1, type: 2}
+  particle: {fileID: 1000996106448251057, guid: a0d91cd8f9652374cb239e0fdabe2725, type: 3}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 200

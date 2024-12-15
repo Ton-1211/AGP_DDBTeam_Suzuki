@@ -27,6 +27,10 @@ public class GunStatus : MonoBehaviour
     {
         get { return weaponData.SubWeapon == null; }
     }
+    public WeaponData.WeaponType WeaponType
+    {
+        get { return weaponData.Type; }
+    }
 
     void Start()
     {
@@ -53,7 +57,7 @@ public class GunStatus : MonoBehaviour
             bullet.transform.forward = forward;
             bullet.transform.Rotate(diffusion);
         }
-        if(remainBullets == 0 && weaponData.Role == WeaponData.WeaponRole.main)
+        if(remainBullets == 0 && weaponData.Role == WeaponData.WeaponRole.Main)
         {
             ChangeWeapon();
         }

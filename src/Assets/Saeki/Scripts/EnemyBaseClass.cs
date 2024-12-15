@@ -21,11 +21,15 @@ public class EnemyBaseClass : CharacterStatus
 
     [SerializeField] protected float lockonIntarval = 3f;
 
+    [Header("敵が使用するコントローラー"), SerializeField] RuntimeAnimatorController enemyAliveController;
+    [Header("プレイヤーが乗り移ったときに使用するコントローラー"), SerializeField] RuntimeAnimatorController playerController;
+
     protected float remainingCount = 0, lockonCount = 0;
     protected bool remainingCheck = false, lockonCheck = false;
 
     private float WatchCount = 0;
-    private bool isWatched = false ,isGetMesh = false;
+    private bool isWatched = false ,isGetMesh = false, isFire = false;
+    private float fireTimer = 0f, fireTimerMax = 0.2f;
     private MeshRenderer mesh;
 
     public void Watch() { isWatched = true; WatchCount = 0; }
@@ -133,6 +137,9 @@ public class EnemyBaseClass : CharacterStatus
             remainingBullets--;
             if (!remainingCheck) remainingCheck = true;
             TargetManeger.WatchTarget();
+
+            isFire = true;
+            fireTimer = fireTimerMax;
             //Debug.Log("FIRE!!");
         }
         //GameObject.Instantiate(Bullet, transform.position, Quaternion.identity);
@@ -195,9 +202,33 @@ public class EnemyBaseClass : CharacterStatus
             StopChase();
             if (ShotCheck())
                 OnFire();
+
+            FireAnimationCheck();
         }
         else
+        {
             LostHitPoint();
+            if(CharacterAnimator.runtimeAnimatorController == enemyAliveController)// アニメーターコントローラーの差し替え
+            {
+                GetComponent<Animator>().runtimeAnimatorController = playerController;
+                CharacterAnimator.SetBool("Dead", true);
+            }
+        }
+    }
+
+    private void FireAnimationCheck()
+    {
+        if(isFire)
+        {
+            fireTimer -= Time.deltaTime;
+            if(fireTimer <= 0)
+            {
+                isFire = false;
+            }
+        }
+        CharacterAnimator.SetBool("Fire", isFire);
+        CharacterAnimator.SetBool("AmmoKeep", guns.RemainBullets > 0);
+        CharacterAnimator.SetInteger("WeaponCategory", (int)guns.WeaponType);
     }
 
     // Update is called once per frame

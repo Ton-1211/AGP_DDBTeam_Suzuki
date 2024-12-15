@@ -56,14 +56,7 @@ public class PlayerDamageEffect : MonoBehaviour
             color.a = damagesAlpha[nowHP];
             damageImage.GetComponent<Image>().color = color;
 
-            //if (nowHP > 0)
-            //{
-            //    nowHP--;
-            //    hpsGreen[nowHP].enabled = false;
-            //    color.a = damagesAlpha[nowHP];
-            //    damageImage.GetComponent<Image>().color = color;
-            //}
-            Debug.Log("Hit:" + nowHP);
+            //Debug.Log("Hit:" + nowHP);
         }
     }
     public void Reset()

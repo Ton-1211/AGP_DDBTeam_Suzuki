@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 1852753636871314517}
   - component: {fileID: 3763827580875228119}
   - component: {fileID: 7643651813526268016}
-  - component: {fileID: 8518722469280026008}
   - component: {fileID: 6255922463394865559}
   m_Layer: 0
   m_Name: Gun
@@ -115,7 +114,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5149767378947466330}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -150,27 +149,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8518722469280026008
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5149767378947466330}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6255922463394865559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +423,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7982174617525038414, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7982174617525038414, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 15e75de401c7a1247ac408339666141f, type: 2}
@@ -563,9 +545,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8504854735574410861, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
   m_PrefabInstance: {fileID: 9197524484614129256}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &2173798710635819476 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7029777762751903676, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
+  m_PrefabInstance: {fileID: 9197524484614129256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5380384335400581803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5400136176637920061, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
+  m_PrefabInstance: {fileID: 9197524484614129256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7970726699361227994 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7982174617525038414, guid: e0a7bffa31ffcef49bda578e3099bc74, type: 3}
   m_PrefabInstance: {fileID: 9197524484614129256}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8315124958433852217 stripped
@@ -633,7 +625,7 @@ Animator:
   m_GameObject: {fileID: 8315124958433852217}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32369cb3e30a54f41a28090b7f90e77d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4f881c0e429454c44941ee5b6bc2f519, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -679,6 +671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 694534675381886981}
+  enemyHead: {fileID: 2173798710635819476}
+  playerHead: {fileID: 7970726699361227994}
 --- !u!114 &1142581701894985430
 MonoBehaviour:
   m_ObjectHideFlags: 0

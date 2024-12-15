@@ -1093,7 +1093,7 @@ AnimatorController:
   - m_Name: WeaponCategory
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Fire
@@ -2137,8 +2137,7 @@ AnimatorState:
   m_Name: CharacterChange
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 4610751303516674830}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

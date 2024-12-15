@@ -7,22 +7,22 @@ public class CharacterStatus : MonoBehaviour
     [SerializeField] CharacterData characterData;
 
     float hp;
+    float remainPossessTime;
+    float damageTimer;
+    Animator animator;
+    bool possessed;
     public float Hp
     {
         get { return hp; }
-    }
-
-    float remainPossessTime;
+    } 
     public float RemainPossessTime
     {
         get { return remainPossessTime; }
     }
-
     public bool IsDead
     {
         get { return hp <= 0; }
     }
-    bool possessed;
     public bool CanPossess// æ‚èˆÚ‚ê‚é‚©‚Ç‚¤‚©
     {
         get { return IsDead || possessed; }
@@ -31,16 +31,19 @@ public class CharacterStatus : MonoBehaviour
     {
         get { return gameObject.tag; }
     }
-    float damageTimer;
-    UnityEngine.Animator animator;
+    public Animator CharacterAnimator
+    {
+        get { return animator; }
+    }
     void Start()
     {
         possessed = false;
         StartSetUp();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        SearchAnimator();
         if(damageTimer > 0f)
         {
             damageTimer -= Time.deltaTime;
@@ -50,7 +53,7 @@ public class CharacterStatus : MonoBehaviour
     public void StartSetUp()
     {
         SetHpMax();
-        animator = GetComponent<UnityEngine.Animator>();
+        TryGetComponent<Animator>(out animator);
         remainPossessTime = characterData.MaxPossessTime;
         damageTimer = 0f;
         if(tag == "Player")
@@ -71,7 +74,7 @@ public class CharacterStatus : MonoBehaviour
             hp = 0f;
             if(launch && TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
-                rb.AddForce(Vector3.up * 2f, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * 15f, ForceMode.Impulse);
             }
         }
 
@@ -105,9 +108,20 @@ public class CharacterStatus : MonoBehaviour
 
         animator.SetBool("Dead", IsDead);
     }
-
+    public void OnPossessToOther()
+    {
+        animator.SetBool("Dead", true);
+    }
     void SetHpMax()
     {
         hp = characterData.MaxHp;// HP‚ğÅ‘å‚Éİ’è
+    }
+
+    void SearchAnimator()
+    {
+        if (animator != null && animator.gameObject != null &&
+            animator.gameObject == gameObject) return;// ‚«‚¿‚ñ‚Æİ’è‚³‚ê‚Ä‚¢‚éi•ÏX‚ª‚È‚¢j‚È‚çÄæ“¾‚µ‚È‚¢
+
+        TryGetComponent<Animator>(out animator);
     }
 }
