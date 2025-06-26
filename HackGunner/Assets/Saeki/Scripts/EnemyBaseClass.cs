@@ -194,9 +194,9 @@ public class EnemyBaseClass : CharacterStatus
     private bool ShotCheck()
     { 
         if(remainingCheck)
-            return remainingCount > guns.DefaultIntarval && remainingBullets > 0;
+            return remainingCount > guns.DefaultInterval && remainingBullets > 0;
         else
-            return remainingCount > guns.FirstIntarval && remainingBullets > 0;
+            return remainingCount > guns.FirstInterval && remainingBullets > 0;
     }
 
     private void MoveEnemy()

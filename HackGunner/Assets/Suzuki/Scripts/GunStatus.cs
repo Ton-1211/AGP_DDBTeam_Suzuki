@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,43 +7,32 @@ public class GunStatus : MonoBehaviour
 {
     [SerializeField] WeaponData weaponData;
 
+    [UnityEngine.Serialization.FormerlySerializedAs("firstShotIntarval")][SerializeField] float firstShotInterval = 2f;
+    [UnityEngine.Serialization.FormerlySerializedAs("defaultShotIntarval")][SerializeField] float defaultShotInterval = 0.5f;
     int remainBullets;
-    [SerializeField] float firstShotIntarval = 2f, defaultShotIntarval = 0.5f;
 
-    public float FirstIntarval => firstShotIntarval;
-    public float DefaultIntarval => defaultShotIntarval;
+    public float FirstInterval => firstShotInterval;
+    public float DefaultInterval => defaultShotInterval;
 
-    public int RemainBullets
-    {
-        get { return remainBullets; }
-    }
+    public int RemainBullets => remainBullets;
 
-    public Sprite WeaponImage
-    {
-        get { return weaponData.WeaponImage; }
-    }
+    public Sprite WeaponImage => weaponData.WeaponImage;
 
-    public bool IsSubWeapon
-    {
-        get { return weaponData.SubWeapon == null; }
-    }
-    public WeaponData.WeaponType WeaponType
-    {
-        get { return weaponData.Type; }
-    }
+    public bool IsSubWeapon => weaponData.SubWeapon == null;
+    public WeaponData.WeaponType WeaponType => weaponData.Type;
 
     void Start()
     {
         FillBullet();
     }
     /// <summary>
-    /// e‚©‚ç”­Ë•ûŒü‚ğŒü‚¢‚½e’e‚ğ¶¬‚·‚é
+    /// éŠƒã‹ã‚‰ç™ºå°„æ–¹å‘ã‚’å‘ã„ãŸéŠƒå¼¾ã‚’ç”Ÿæˆã™ã‚‹
     /// </summary>
-    /// <param name="infiniteBullet">’e‚ğÁ”ï‚³‚¹‚é‚©‚Ç‚¤‚©</param>
-    /// <returns>Œ‚‚Ä‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·</returns>
+    /// <param name="infiniteBullet">å¼¾ã‚’æ¶ˆè²»ã•ã›ã‚‹ã‹ã©ã†ã‹</param>
+    /// <returns>æ’ƒã¦ãŸã‹ã©ã†ã‹ã‚’è¿”ã™</returns>
     public bool Shoot(Vector3 position, Vector3 forward, string tag, bool infiniteBullet)
     {
-        if(remainBullets <= 0 && !infiniteBullet) return false;
+        if(remainBullets <= 0 && !infiniteBullet) return false;// æ®‹å¼¾æ•°ãŒæ®‹ã£ã¦ã„ãªã„ã¨ãã¯å°„æ’ƒã—ãªã„ï¼ˆç„¡é™ã«æ’ƒã¦ã‚‹çŠ¶æ…‹ã®æ™‚ã‚’é™¤ãï¼‰
         if(!infiniteBullet) remainBullets--;
 
         for (int i = 0; i < weaponData.BulletSettings.Count; i++)
@@ -57,7 +46,7 @@ public class GunStatus : MonoBehaviour
             bullet.transform.forward = forward;
             bullet.transform.Rotate(diffusion);
         }
-        SR_SoundController.instance.PlaySEOnce(weaponData.ShotSound, transform);// eº‚ğ–Â‚ç‚·
+        SR_SoundController.instance.PlaySEOnce(weaponData.ShotSound, transform);// éŠƒå£°ã‚’é³´ã‚‰ã™
         if (remainBullets == 0 && weaponData.Role == WeaponData.WeaponRole.Main)
         {
             ChangeWeapon();
@@ -65,22 +54,21 @@ public class GunStatus : MonoBehaviour
         return true;
     }
 
-    void FillBullet()// ’eŠÛ‚Ì•â[
+    void FillBullet()// å¼¾ä¸¸ã®è£œå……
     {
         remainBullets = weaponData.MaxBullet;
     }
 
-    void ChangeWeapon()// •Ší‚ÌØ‚è‘Ö‚¦
+    void ChangeWeapon()// æ­¦å™¨ã®åˆ‡ã‚Šæ›¿ãˆ
     {
         if (weaponData.SubWeapon != null)
         {
-            Debug.Log("ƒTƒu•Ší‚ğg‚¤I");
             Transform parent = this.transform.parent;
-            Instantiate(weaponData.SubWeapon, parent);// •Ší‚Ì¶¬
+            Instantiate(weaponData.SubWeapon, parent);// æ­¦å™¨ã®ç”Ÿæˆ
             PlayerMove playerMove = parent.GetComponentInChildren<PlayerMove>();
 
-            this.transform.SetParent(null);// eq•t‚¯‚ğŠO‚·
-            playerMove.SetGunObject();// ‚Á‚Ä‚¢‚ée‚Ìİ’è
+            this.transform.SetParent(null);// è¦ªå­ä»˜ã‘ã‚’å¤–ã™
+            playerMove.SetGunObject();// æŒã£ã¦ã„ã‚‹éŠƒã®è¨­å®š
             Destroy(this.gameObject);
         }
     }

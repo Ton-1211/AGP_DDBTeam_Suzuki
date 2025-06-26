@@ -1,42 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStatus : MonoBehaviour
 {
     [SerializeField] CharacterData characterData;
-    [Header("ƒvƒŒƒCƒ„[‚ªæ‚èˆÚ‚Á‚½Û‚Ég—p‚·‚éƒf[ƒ^"), SerializeField] CharacterData playerData;
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¹—ã‚Šç§»ã£ãŸéš›ã«ä½¿ç”¨ã™ã‚‹ãƒ‡ãƒ¼ã‚¿"), SerializeField] CharacterData playerData;
 
     float hp;
-    float remainPossessTime;
     float damageTimer;
     Animator animator;
     bool possessed;
     bool deadFirstTime;
-    public float Hp
-    {
-        get { return hp; }
-    } 
-    public float RemainPossessTime
-    {
-        get { return remainPossessTime; }
-    }
-    public bool IsDead
-    {
-        get { return hp <= 0; }
-    }
-    public bool CanPossess// æ‚èˆÚ‚ê‚é‚©‚Ç‚¤‚©
-    {
-        get { return IsDead || possessed; }
-    }
-    public string ObjectTag
-    {
-        get { return gameObject.tag; }
-    }
-    public Animator CharacterAnimator
-    {
-        get { return animator; }
-    }
+    public float Hp => hp;
+    public bool IsDead => hp <= 0;
+    public bool CanPossess => IsDead || possessed;// ä¹—ã‚Šç§»ã‚Œã‚‹ã‹ã©ã†ã‹
+    public string ObjectTag => gameObject.tag;
+    public Animator CharacterAnimator => animator;
     void Start()
     {
         possessed = false;
@@ -57,7 +37,6 @@ public class CharacterStatus : MonoBehaviour
     {
         SetHpMax();
         TryGetComponent<Animator>(out animator);
-        remainPossessTime = characterData.MaxPossessTime;
         damageTimer = 0f;
         if(tag == "Player")
         {
@@ -66,11 +45,11 @@ public class CharacterStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ_ƒ[ƒW‚ğ—^‚¦‚é
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
     /// </summary>
     public void TakeDamage(float damage, bool launch = false)
     {
-        if (damageTimer > 0f) return;// –³“GŠÔ’†‚Íƒ_ƒ[ƒW‚ğ‚­‚ç‚í‚È‚¢
+        if (damageTimer > 0f) return;// ç„¡æ•µæ™‚é–“ä¸­ã¯ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ãã‚‰ã‚ãªã„
         hp -= damage;
         if(hp <= 0f)
         {
@@ -86,28 +65,16 @@ public class CharacterStatus : MonoBehaviour
             damageTimer = characterData.ImmunityTime;
         }
 
-        if (tag == "Player" && !IsDead) return;// æ‚èˆÚ‚Á‚½‚ ‚Æ‚Éƒhƒ‰ƒ€ŠÊ‚Ì”š”­‚É“–‚½‚é‚Æ—§‚¿ã‚ª‚Á‚Ä‚µ‚Ü‚¤‚½‚ß
+        if (tag == "Player" && !IsDead) return;// ä¹—ã‚Šç§»ã£ãŸã‚ã¨ã«ãƒ‰ãƒ©ãƒ ç¼¶ã®çˆ†ç™ºã«å½“ãŸã‚‹ã¨ç«‹ã¡ä¸ŠãŒã£ã¦ã—ã¾ã†ãŸã‚
         if (animator != null)
         {
             animator.SetBool("Dead", IsDead);
         }
     }
 
-    /// <summary>
-    /// æ‚èœß‚«ŠÔ‚ğŒo‰ß
-    /// </summary>
-    public void ElapsePossessTime()
+    public void OnPossess()// å–ã‚Šæ†‘ãæ™‚ã®å‡¦ç†
     {
-        remainPossessTime -= Time.fixedDeltaTime;
-        if(remainPossessTime <= 0f)
-        {
-            remainPossessTime = 0f;
-        }
-    }
-
-    public void OnPossess()// æ‚èœß‚«‚Ìˆ—
-    {
-        if(!possessed)// ‰‰ñæ‚èœß‚«‚Ì‚Æ‚«
+        if(!possessed)// åˆå›å–ã‚Šæ†‘ãã®ã¨ã
         {
             characterData = playerData;
             SetHpMax();
@@ -122,13 +89,13 @@ public class CharacterStatus : MonoBehaviour
     }
     void SetHpMax()
     {
-        hp = characterData.MaxHp;// HP‚ğÅ‘å‚Éİ’è
+        hp = characterData.MaxHp;// HPã‚’æœ€å¤§ã«è¨­å®š
     }
 
     void SearchAnimator()
     {
         if (animator != null && animator.gameObject != null &&
-            animator.gameObject == gameObject) return;// ‚«‚¿‚ñ‚Æİ’è‚³‚ê‚Ä‚¢‚éi•ÏX‚ª‚È‚¢j‚È‚çÄæ“¾‚µ‚È‚¢
+            animator.gameObject == gameObject) return;// ãã¡ã‚“ã¨è¨­å®šã•ã‚Œã¦ã„ã‚‹ï¼ˆå¤‰æ›´ãŒãªã„ï¼‰ãªã‚‰å†å–å¾—ã—ãªã„
 
         TryGetComponent<Animator>(out animator);
     }
