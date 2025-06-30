@@ -10,7 +10,7 @@ public class CharacterData : BaseData
     [SerializeField] float maxPossessTime;
     [SerializeField] float immunityTime = 0f;
 
-    // プロパティ
+    // 繝励Ο繝代ユ繧｣
     public float MaxHp
     {
         get { return maxHp; }

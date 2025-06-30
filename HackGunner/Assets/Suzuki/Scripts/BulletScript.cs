@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// BulletBaseClass‚ÉˆÚs
+/// BulletBaseClassã«ç§»è¡Œ
 /// </summary>
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] BulletData bulletData;
-    [Header("’e‚ªÕ“Ë‚·‚éƒŒƒCƒ„["), SerializeField] LayerMask layerMask;
+    [Header("å¼¾ãŒè¡çªã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼"), SerializeField] LayerMask layerMask;
     void Start()
     {
      
@@ -17,11 +17,11 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.layer == layerMask)
         {
-            if (other.TryGetComponent<CharacterStatus>(out CharacterStatus character))// ƒLƒƒƒ‰ƒNƒ^[‚É“–‚½‚Á‚½‚Æ‚«
+            if (other.TryGetComponent<CharacterStatus>(out CharacterStatus character))// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã«å½“ãŸã£ãŸã¨ã
             {
                 if (character.ObjectTag == "Player")
                 {
-                    character.TakeDamage(1f);// «—ˆƒ_ƒ[ƒWí‚²‚Æ‚Åƒ_ƒ[ƒW‚Ì’l‚ğ•Ï‚¦‚é‚©‚à
+                    character.TakeDamage(1f);// å°†æ¥ãƒ€ãƒ¡ãƒ¼ã‚¸ç¨®ã”ã¨ã§ãƒ€ãƒ¡ãƒ¼ã‚¸ã®å€¤ã‚’å¤‰ãˆã‚‹ã‹ã‚‚
                 }
                 else
                 {

@@ -6,23 +6,23 @@ public class BaseDataStore<T, U> : MonoBehaviour where T : BaseDataBase<U> where
 {
     [SerializeField] protected T dataBase;
 
-    // ƒvƒƒpƒeƒB
+    // ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     public T DataBase
     {
         get { return dataBase; }
     }
 
     /// <summary>
-    /// •¶š—ñ‚©‚çƒf[ƒ^ƒx[ƒX“à‚Ìƒf[ƒ^‚ğæ“¾
+    /// æ–‡å­—åˆ—ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹å†…ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
     /// </summary>
     public U FindWithName(string name)
     {
-        if(string.IsNullOrEmpty(name)) { return default; }// Nullƒ`ƒFƒbƒN
+        if(string.IsNullOrEmpty(name)) { return default; }// Nullãƒã‚§ãƒƒã‚¯
         return dataBase.ItemList.Find(e => e.Name == name);
     }
 
     /// <summary>
-    /// ID‚©‚çƒf[ƒ^ƒx[ƒX“à‚Ìƒf[ƒ^‚ğæ“¾
+    /// IDã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹å†…ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
     /// </summary>
     public U FindWithId(int id)
     {

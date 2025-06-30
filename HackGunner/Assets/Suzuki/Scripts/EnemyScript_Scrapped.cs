@@ -40,7 +40,7 @@ public class EnemyScript_Scrapped : MonoBehaviour
 
         agent.destination = targetPoints[destPoint].position;
 
-        // ŽŸ‚Ìƒ|ƒCƒ“ƒg’n“_Ý’è
+        // æ¬¡ã®ãƒã‚¤ãƒ³ãƒˆåœ°ç‚¹è¨­å®š
         destPoint = patrol ? (destPoint + 1) % targetPoints.Length : destPoint + 1;
         if(destPoint >= targetPoints.Length)
         {

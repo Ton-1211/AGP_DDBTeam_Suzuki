@@ -9,16 +9,16 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if(IsSlow && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.Normal)// �X���[���Ƀv���C���[�̃A�j���[�V�����͕ς��Ȃ��悤��
+        if(IsSlow && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.Normal)// スロー時にプレイヤーのアニメーションは変わらないように
         {
             TargetManeger.PlayerStatus.CharacterAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
         }
-        if(!IsSlow && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.UnscaledTime)// �X���[�������͒ʏ�ɖ߂��Ă���
+        if(!IsSlow && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.UnscaledTime)// スロー解除時は通常に戻しておく
         {
             TargetManeger.PlayerStatus.CharacterAnimator.updateMode = AnimatorUpdateMode.Normal;
         }
 
-        if(IsPaused && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.UnscaledTime)// �|�[�Y���͓������~�܂�悤��
+        if(IsPaused && TargetManeger.PlayerStatus.CharacterAnimator.updateMode == AnimatorUpdateMode.UnscaledTime)// ポーズ中は動きが止まるように
         {
             TargetManeger.PlayerStatus.CharacterAnimator.updateMode = AnimatorUpdateMode.Normal;
         }

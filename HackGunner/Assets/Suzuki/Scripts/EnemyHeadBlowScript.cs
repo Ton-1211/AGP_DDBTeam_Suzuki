@@ -6,7 +6,7 @@ public class EnemyHeadBlowScript : MonoBehaviour
 {
     [SerializeField] float power;
     [SerializeField] Rigidbody rigidbody;
-    [Header("“ª‚ªÁ‚¦‚é‚Ü‚Å‚ÌŠÔ"), SerializeField] float destroySeconds = 1f;
+    [Header("é ­ãŒæ¶ˆãˆã‚‹ã¾ã§ã®æ™‚é–“"), SerializeField] float destroySeconds = 1f;
 
     public void BlowOff(Vector3 basePosition)
     {

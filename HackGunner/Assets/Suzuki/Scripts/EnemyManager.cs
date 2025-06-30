@@ -37,11 +37,11 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ğ”­Œ©‚µ‚Ä‚¢‚é“G‚Ì”­Œ©î•ñ‚ğƒŠƒZƒbƒg‚·‚é
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç™ºè¦‹ã—ã¦ã„ã‚‹æ•µã®ç™ºè¦‹æƒ…å ±ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
     /// </summary>
     public void ResetSearch(Vector3 playerPosition)
     {
-        // ChangeƒXƒNƒŠƒvƒg‚©‚çæ‚èˆÚ‚è‚ÉŒÄ‚Ño‚·—\’è
+        // Changeã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰ä¹—ã‚Šç§»ã‚Šæ™‚ã«å‘¼ã³å‡ºã™äºˆå®š
         foreach(EnemyProperties enemy in enemyList)
         {
             if(enemy.SearchColliderScript.FoundPlayer != null)
@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    void OnValidate()// ƒCƒ“ƒXƒyƒNƒ^[ã‚Ì•ÏX
+    void OnValidate()// ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ä¸Šã®å¤‰æ›´æ™‚
     {
         if(enemyList != null)
         {

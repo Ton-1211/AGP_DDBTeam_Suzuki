@@ -50,7 +50,7 @@ public class MapGrid
         this.y = y;
         this.state = state;
         this.isChecked = false;
-        // ã‰º¶‰E‚É‚Â‚È‚ª‚Á‚Ä‚¢‚éƒ}ƒX‚Í•Ê“rŠÖ”‚ğ—pˆÓ‚µ‚ÄŒã‚©‚ç‚Â‚È‚°‚é—\’è
+        // ä¸Šä¸‹å·¦å³ã«ã¤ãªãŒã£ã¦ã„ã‚‹ãƒã‚¹ã¯åˆ¥é€”é–¢æ•°ã‚’ç”¨æ„ã—ã¦å¾Œã‹ã‚‰ã¤ãªã’ã‚‹äºˆå®š
         left = null;
         right = null;
         up = null;
@@ -65,7 +65,7 @@ public class MapGrid
     {
         switch(direction)
         {
-            // return‚Å‹A‚é‚Ì‚Åbreak‚Í“ü‚ê‚Ä‚¢‚È‚¢
+            // returnã§å¸°ã‚‹ã®ã§breakã¯å…¥ã‚Œã¦ã„ãªã„
             case Direction.left: return left;
             case Direction.right: return right;
             case Direction.up: return up;
@@ -74,12 +74,12 @@ public class MapGrid
         }
     }
 
-    public void Prune()// í‚é
+    public void Prune()// å‰Šã‚‹
     {
-        state = State.None;// ‚±‚Ìƒ}ƒX‚ğ‹ó”’‚É‚·‚é
+        state = State.None;// ã“ã®ãƒã‚¹ã‚’ç©ºç™½ã«ã™ã‚‹
         connectedNum = CheckConnectedNum();
 
-        // ‚Â‚È‚ª‚Á‚Ä‚¢‚éƒ}ƒX‚Ìs‚¯‚éêŠ‚ğŒÀŠE‚Ü‚Å’T‚·
+        // ã¤ãªãŒã£ã¦ã„ã‚‹ãƒã‚¹ã®è¡Œã‘ã‚‹å ´æ‰€ã‚’é™ç•Œã¾ã§æ¢ã™
 
         
     }
@@ -95,7 +95,7 @@ public class MapGrid
         return sum;
     }
 
-    private int SearchDirectionConnectedNum(Direction direction)// w’è‚µ‚½•ûŒü‚ğ‹ó”’‚ğŒ©‚Â‚¯‚é‚Ü‚Å’²‚×‚é
+    private int SearchDirectionConnectedNum(Direction direction)// æŒ‡å®šã—ãŸæ–¹å‘ã‚’ç©ºç™½ã‚’è¦‹ã¤ã‘ã‚‹ã¾ã§èª¿ã¹ã‚‹
     {
         MapGrid next;
         int sum = 0;

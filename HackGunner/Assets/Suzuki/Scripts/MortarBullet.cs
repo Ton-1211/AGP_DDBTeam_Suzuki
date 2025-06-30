@@ -5,11 +5,11 @@ using UnityEngine;
 public class MortarBullet : MonoBehaviour
 {
     [SerializeField] float flightTime = 1f;
-    [Header("Ä¶‘¬“x"), SerializeField] float speedRate = 2f;
+    [Header("å†ç”Ÿé€Ÿåº¦"), SerializeField] float speedRate = 2f;
     [SerializeField] BulletData bulletData;
-    [Header("”š•—ƒvƒŒƒnƒu"), SerializeField] GameObject explosionPrefab;
-    [Header("‹ºˆĞ”ÍˆÍƒvƒŒƒnƒu"), SerializeField] GameObject warningAreaPrefab;
-    [Header("’e‚ªÕ“Ë‚·‚éƒŒƒCƒ„["), SerializeField] LayerMask hitLayerMask;
+    [Header("çˆ†é¢¨ãƒ—ãƒ¬ãƒãƒ–"), SerializeField] GameObject explosionPrefab;
+    [Header("è„…å¨ç¯„å›²ãƒ—ãƒ¬ãƒãƒ–"), SerializeField] GameObject warningAreaPrefab;
+    [Header("å¼¾ãŒè¡çªã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼"), SerializeField] LayerMask hitLayerMask;
 
     GameObject player;
     PlayerRay playerRay;
@@ -38,19 +38,19 @@ public class MortarBullet : MonoBehaviour
     {
         if(CompareLayer(hitLayerMask, other.gameObject.layer))
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);// ”š•—‚Ì¶¬iƒGƒtƒFƒNƒgANavMesh ObstacleŒn“j
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);// çˆ†é¢¨ã®ç”Ÿæˆï¼ˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã€NavMesh Obstacleç³»çµ±ï¼‰
             Destroy(gameObject);
         }
     }
 
-    // Õ“Ë‚µ‚½Layer‚ªLayerMask‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚é‚©Šm”F
+    // è¡çªã—ãŸLayerãŒLayerMaskã«å«ã¾ã‚Œã¦ã„ã‚‹ã‹ç¢ºèª
     bool CompareLayer(LayerMask layerMask, int layer)
     {
         return ((1 << layer) & layerMask) != 0;
     }
 
     /// <summary>
-    /// Î•ûˆÚ“®‚ğs‚¤ƒRƒ‹[ƒ`ƒ“
+    /// æ–œæ–¹ç§»å‹•ã‚’è¡Œã†ã‚³ãƒ«ãƒ¼ãƒãƒ³
     /// </summary>
     IEnumerator MoveParabolically()
     {
@@ -61,13 +61,13 @@ public class MortarBullet : MonoBehaviour
 
         for(float time = 0f; time < flightTime; time += (Time.deltaTime * speedRate))
         {
-            Vector3 position = Vector3.Lerp(startPosition, targetPosition, time / flightTime);// x,z•½–Êã‚ÌÀ•W
-            position.y = startPosition.y + initialVelocityVertical * time + 0.5f * Physics.gravity.y * time *time;// yÀ•W
+            Vector3 position = Vector3.Lerp(startPosition, targetPosition, time / flightTime);// x,zå¹³é¢ä¸Šã®åº§æ¨™
+            position.y = startPosition.y + initialVelocityVertical * time + 0.5f * Physics.gravity.y * time *time;// yåº§æ¨™
             transform.position = position;
             yield return null;
         }
-        Destroy(warningArea);// ‹ºˆĞ”ÍˆÍ‚ğíœ
-        transform.position = targetPosition;// ƒYƒŒ‚Ä‚¢‚½ê‡‚É”õ‚¦‚ÄC³
+        Destroy(warningArea);// è„…å¨ç¯„å›²ã‚’å‰Šé™¤
+        transform.position = targetPosition;// ã‚ºãƒ¬ã¦ã„ãŸå ´åˆã«å‚™ãˆã¦ä¿®æ­£
     }
 
     //void Shoot()
@@ -75,7 +75,7 @@ public class MortarBullet : MonoBehaviour
     //    float initialSpeed = CalcInitialSpeedFromAngle(targetPosition, angle);
     //    if (initialSpeed <= 0f)
     //    {
-    //        Debug.LogWarning("’…’e•s‰Â”\‚È’n“_‚ªw’è‚µ‚ê‚Ü‚µ‚½");
+    //        Debug.LogWarning("ç€å¼¾ä¸å¯èƒ½ãªåœ°ç‚¹ãŒæŒ‡å®šã—ã‚Œã¾ã—ãŸ");
     //        return;
     //    }
     //    Vector3 shootVector = GetSpeedVector(initialSpeed, angle, targetPosition);
@@ -84,11 +84,11 @@ public class MortarBullet : MonoBehaviour
     //}
 
     ///// <summary>
-    ///// Šp“x‚©‚ç‰‘¬“x‚ğ‹‚ß‚é
+    ///// è§’åº¦ã‹ã‚‰åˆé€Ÿåº¦ã‚’æ±‚ã‚ã‚‹
     ///// </summary>
     //float CalcInitialSpeedFromAngle(Vector3 targetPosition, float angle)
     //{
-    //    // xz•½–Ê‚Ì‹——£‚ğŒvZ
+    //    // xzå¹³é¢ã®è·é›¢ã‚’è¨ˆç®—
     //    Vector2 startPosPlane = new Vector2(transform.position.x, transform.position.z);
     //    Vector2 targetPosPlane = new Vector2(targetPosition.x, targetPosition.z);
     //    float distance = Vector2.Distance(targetPosPlane, startPosPlane);
@@ -98,13 +98,13 @@ public class MortarBullet : MonoBehaviour
     //    float startY = transform.position.y;
     //    float targetY = targetPosition.y;
 
-    //    float theta = angle * Mathf.Deg2Rad;// ƒ‰ƒWƒAƒ“‚É•ÏŠ·
+    //    float theta = angle * Mathf.Deg2Rad;// ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›
     //    float cosTheta = Mathf.Cos(theta);
     //    float tanTheta = Mathf.Tan(theta);
 
-    //    float initialSpeedSquare = g * x * x / (2 * cosTheta * cosTheta * (targetY - startY - x * tanTheta));// ‰‘¬“x‚Ì‚Qæ
+    //    float initialSpeedSquare = g * x * x / (2 * cosTheta * cosTheta * (targetY - startY - x * tanTheta));// åˆé€Ÿåº¦ã®ï¼’ä¹—
     //    float initialSpeed;
-    //    if (initialSpeedSquare <= 0)// ‰‘¬“x‚Ì‚Qæ‚ª•‰‚Ì”‚Ìê‡‚Í‹•”‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚Ì‚ÅŒvZ‚ğI—¹
+    //    if (initialSpeedSquare <= 0)// åˆé€Ÿåº¦ã®ï¼’ä¹—ãŒè² ã®æ•°ã®å ´åˆã¯è™šæ•°ã«ãªã£ã¦ã—ã¾ã†ã®ã§è¨ˆç®—ã‚’çµ‚äº†
     //    {
     //        initialSpeed = 0f;
     //        return initialSpeed;
@@ -114,18 +114,18 @@ public class MortarBullet : MonoBehaviour
     //}
 
     ///// <summary>
-    ///// ‰‘¬“x‚©‚ç‘¬“xƒxƒNƒgƒ‹‚Ö•ÏŠ·
+    ///// åˆé€Ÿåº¦ã‹ã‚‰é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«ã¸å¤‰æ›
     ///// </summary>
     //Vector3 GetSpeedVector(float initialSpeed, float angle, Vector3 targetPosition)
     //{
-    //    // xz•½–Êã‚ÌŒvZ
+    //    // xzå¹³é¢ä¸Šã®è¨ˆç®—
     //    Vector3 startPos = transform.position;
     //    Vector3 targetPos = targetPosition;
     //    startPos.y = 0f;
     //    targetPos.y = 0f;
 
     //    Vector3 direction = (targetPos - startPos).normalized;
-    //    Quaternion yawRotation = Quaternion.FromToRotation(Vector3.right, direction);// ƒˆ[‚Ì‰ñ“]
+    //    Quaternion yawRotation = Quaternion.FromToRotation(Vector3.right, direction);// ãƒ¨ãƒ¼ã®å›è»¢
     //    Vector3 vector = initialSpeed * Vector3.right;
 
     //    vector = yawRotation * Quaternion.AngleAxis(angle, Vector3.forward) * vector;

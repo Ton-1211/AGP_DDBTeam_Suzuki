@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class ExplosionScript : MonoBehaviour
 {
     [SerializeField] NavMeshObstacle navMeshObstacle;
-    [Header("”j‰ó‚Å‚«‚éƒ^ƒO"),SerializeField] string breakableTag = "Breakable";
-    [Header("°‚ğ”j‰ó‚·‚é‚Ü‚Å‚Ìd‚È‚è‹ï‡"), Range(0, 1), SerializeField] float breakFloorThreshold = 0.8f;
+    [Header("ç ´å£Šã§ãã‚‹ã‚¿ã‚°"),SerializeField] string breakableTag = "Breakable";
+    [Header("åºŠã‚’ç ´å£Šã™ã‚‹ã¾ã§ã®é‡ãªã‚Šå…·åˆ"), Range(0, 1), SerializeField] float breakFloorThreshold = 0.8f;
     [SerializeField] LayerMask breakableLayer;
     [SerializeField] LayerMask enemyLayer;
 
@@ -46,7 +46,7 @@ public class ExplosionScript : MonoBehaviour
         {
             if(enemy.TryGetComponent<CharacterStatus>(out CharacterStatus character))
             {
-                character.TakeDamage(10000f, true);// ’v€ƒ_ƒ[ƒW‚ğ—^‚¦‚é
+                character.TakeDamage(10000f, true);// è‡´æ­»ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
             }
         }
     }

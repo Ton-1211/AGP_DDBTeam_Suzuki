@@ -6,17 +6,17 @@ public abstract class BaseDataBase<T> : ScriptableObject where T : BaseData
 {
     [SerializeField] List<T> itemList = new List<T>();
 
-    // ƒvƒƒpƒeƒB
+    // ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     public List<T> ItemList
     {
         get { return itemList; }
     }
 
-    void OnValidate()// ƒCƒ“ƒXƒyƒNƒ^[ã‚Å•ÏX‚ª‚ ‚Á‚½‚Æ‚«
+    void OnValidate()// ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ä¸Šã§å¤‰æ›´ãŒã‚ã£ãŸã¨ã
     {
         for(int i = 0; i < itemList.Count; i++)
         {
-            itemList[i].SetId(i);// ƒŠƒXƒg‚É“o˜^‚³‚ê‚Ä‚¢‚é‡‚ÉID‚ğU‚è’¼‚·
+            itemList[i].SetId(i);// ãƒªã‚¹ãƒˆã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹é †ã«IDã‚’æŒ¯ã‚Šç›´ã™
         }
     }
 }

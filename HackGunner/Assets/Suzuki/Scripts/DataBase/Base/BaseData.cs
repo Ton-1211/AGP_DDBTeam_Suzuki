@@ -7,7 +7,7 @@ public abstract class BaseData : ScriptableObject
     [SerializeField] new string name;
     [SerializeField] int id;
 
-    // プロパティ
+    // 繝励Ο繝代ユ繧｣
     public string Name
     {
         get { return name; }

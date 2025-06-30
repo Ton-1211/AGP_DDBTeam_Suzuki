@@ -12,10 +12,10 @@ public class GameStateScript : MonoBehaviour
         Clear
     }
 
-    [Header("ƒNƒŠƒA‰æ–Ê"), SerializeField] CanvasGroup clearCanvasGroup;
-    [Header("ƒNƒŠƒA‰æ–Ê•\¦‚Ü‚Å‚ÌŠÔ"),SerializeField] float waitTime;
+    [Header("ã‚¯ãƒªã‚¢ç”»é¢"), SerializeField] CanvasGroup clearCanvasGroup;
+    [Header("ã‚¯ãƒªã‚¢ç”»é¢è¡¨ç¤ºã¾ã§ã®æ™‚é–“"),SerializeField] float waitTime;
     [SerializeField] float panelRiseTime;
-    [Header("ƒNƒŠƒA‰æ–Ê‚ªã‚ª‚é—Ê"), SerializeField] float panelRiseHeight;
+    [Header("ã‚¯ãƒªã‚¢ç”»é¢ãŒä¸ŠãŒã‚‹é‡"), SerializeField] float panelRiseHeight;
 
     RectTransform rectTransform;
     [SerializeField]GameState gameState;
@@ -44,7 +44,7 @@ public class GameStateScript : MonoBehaviour
         gameState = state;
     }
 
-    void UpdateByState()// ƒQ[ƒ€‚Ìó‘Ô‚²‚Æ‚ÌUpdate
+    void UpdateByState()// ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã”ã¨ã®Update
     {
         switch(gameState)
         {
@@ -63,7 +63,7 @@ public class GameStateScript : MonoBehaviour
         }
     }
 
-    IEnumerator ClearProcess()// ƒNƒŠƒAˆ—
+    IEnumerator ClearProcess()// ã‚¯ãƒªã‚¢å‡¦ç†
     {
         yield return new WaitForSecondsRealtime(waitTime);
         Time.timeScale = 0f;
@@ -73,7 +73,7 @@ public class GameStateScript : MonoBehaviour
         yield return RisePanels(clearCanvasGroup);
     }
 
-    IEnumerator RisePanels(CanvasGroup canvasGroup)// ƒNƒŠƒA‰æ–Ê‚ğã‚°‚é
+    IEnumerator RisePanels(CanvasGroup canvasGroup)// ã‚¯ãƒªã‚¢ç”»é¢ã‚’ä¸Šã’ã‚‹
     {
         float riseRate = panelRiseHeight / panelRiseTime;
         float timer = panelRiseTime;

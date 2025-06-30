@@ -8,7 +8,7 @@ public class BulletData : BaseData
     [SerializeField] float attackPower;
     [SerializeField] float speed = 50f;
     [SerializeField] GameObject prefab;
-    // プロパティ
+    // 繝励Ο繝代ユ繧｣
     public float AttackPower
     {
         get { return attackPower; }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StageSelectScript : MonoBehaviour
 {
-    [Tooltip("ステージの番号"), SerializeField] StageNumber stageNumber;
+    [Tooltip("繧ｹ繝�繝ｼ繧ｸ縺ｮ逡ｪ蜿ｷ"), SerializeField] StageNumber stageNumber;
 
     public void StartStage(int sceneNum, int stageNum)
     {

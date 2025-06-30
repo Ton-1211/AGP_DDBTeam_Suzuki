@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerHeadManager : MonoBehaviour
 {
-    [Header("“ªi“G‚Ìê‡‚Íe‚Ì“ªj"), SerializeField] GameObject head;
-    [Header("“G‚Ì“ªA“G‚Ì‚İİ’è"), SerializeField] MeshRenderer enemyHead;
-    [Header("ƒvƒŒƒCƒ„[‚Ì“ªA“G‚Ì‚İİ’è"), SerializeField] MeshRenderer playerHead;
+    [Header("é ­ï¼ˆæ•µã®å ´åˆã¯è¦ªã®é ­ï¼‰"), SerializeField] GameObject head;
+    [Header("æ•µã®é ­ã€æ•µã®ã¿è¨­å®š"), SerializeField] MeshRenderer enemyHead;
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é ­ã€æ•µã®ã¿è¨­å®š"), SerializeField] MeshRenderer playerHead;
     
     public MeshRenderer EnemyHead => enemyHead;
-    public void OnHeadThrow()// animator‚©‚çŒÄ‚Ño‚³‚ê‚é
+    public void OnHeadThrow()// animatorã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã‚‹
     {
         head.SetActive(false);
         TargetManeger.StartHeadChange();
@@ -19,7 +19,7 @@ public class PlayerHeadManager : MonoBehaviour
     {
         head.SetActive(true);
 
-        // “G‚Ìê‡‚Ì‚İ‚Ìİ’è
+        // æ•µã®å ´åˆã®ã¿ã®è¨­å®š
         if (enemyHead != null && playerHead != null)
         {
             enemyHead.enabled = false;

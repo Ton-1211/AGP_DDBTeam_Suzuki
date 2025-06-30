@@ -16,8 +16,8 @@ public class SniperEnemyScript : MonoBehaviour
 
     SearchColliderScript searchColliderScript;
     LineRenderer lineRenderer;
-    float foundTimer = 0f;// ƒvƒŒƒCƒ„[‚ğŒ©‚Â‚¯‚Ä‚¢‚éŠÔ
-    float emitTime = 0.05f;// ˆê‰ñ‚Ì“_–Å‚É‚©‚¯‚éŠÔ
+    float foundTimer = 0f;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¦‹ã¤ã‘ã¦ã„ã‚‹æ™‚é–“
+    float emitTime = 0.05f;// ä¸€å›ã®ç‚¹æ»…ã«ã‹ã‘ã‚‹æ™‚é–“
     bool firstFind = false;
 
     // Start is called before the first frame update
@@ -47,7 +47,7 @@ public class SniperEnemyScript : MonoBehaviour
         if(!firstFind)
         {
             firstFind = true;
-            // ‚±‚±‚ÉƒŒ[ƒU[‚ÌƒVƒF[ƒ_[‚ÉÄ¶ŠJnˆ—‚ğ’Ç‰Á—\’è
+            // ã“ã“ã«ãƒ¬ãƒ¼ã‚¶ãƒ¼ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«å†ç”Ÿé–‹å§‹å‡¦ç†ã‚’è¿½åŠ äºˆå®š
         }
 
         Vector3 direction = searchColliderScript.FoundPlayer.position - transform.position;
@@ -67,6 +67,6 @@ public class SniperEnemyScript : MonoBehaviour
     IEnumerator Emit()
     {
         yield return null;
-        // ‹}Œƒ‚ÈŠg‘åAk¬‚ğ‚³‚¹‚é—\’è
+        // æ€¥æ¿€ãªæ‹¡å¤§ã€ç¸®å°ã‚’ã•ã›ã‚‹äºˆå®š
     }
 }

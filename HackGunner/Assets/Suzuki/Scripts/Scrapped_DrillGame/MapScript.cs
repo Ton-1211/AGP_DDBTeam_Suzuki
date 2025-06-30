@@ -8,8 +8,8 @@ public class MapScript : MonoBehaviour
     [SerializeField] GameObject blueGrid;
     [SerializeField] GameObject greenGrid;
     [SerializeField] GameObject yellowGrid;
-    [Header("“¯‚¶F‚ÌƒOƒŠƒbƒh‚ª‚·‚×‚Ä—‚¿‚é‚Ü‚Å‚ÌŠ„‡"), Range(0f, 1f), SerializeField] float allBreakRate = 0f;
-    [Header("0‚Í‹ó‹CA1`4‚ÍF‚²‚Æ"), SerializeField] string[] mapData;
+    [Header("åŒã˜è‰²ã®ã‚°ãƒªãƒƒãƒ‰ãŒã™ã¹ã¦è½ã¡ã‚‹ã¾ã§ã®å‰²åˆ"), Range(0f, 1f), SerializeField] float allBreakRate = 0f;
+    [Header("0ã¯ç©ºæ°—ã€1ï½4ã¯è‰²ã”ã¨"), SerializeField] string[] mapData;
 
     List<List<MapGrid>> map = new List<List<MapGrid>>();
     Transform gridParent;
@@ -48,13 +48,13 @@ public class MapScript : MonoBehaviour
         {
             if (mapGrid == targetObject)
             {
-                // ƒŠƒXƒg‚©‚çíœ
+                // ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
                 redGrids.Remove(mapGrid);
-                // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                 BreakObject(targetObject);
                 if (redGrids.Count < redLimit)
                 {
-                    BreakGridType(redGrids, MapGrid.State.RedFloor);// “¯‚¶F‚ğ‚·‚×‚Ä‰ó‚·
+                    BreakGridType(redGrids, MapGrid.State.RedFloor);// åŒã˜è‰²ã‚’ã™ã¹ã¦å£Šã™
                 }
                 return;
             }
@@ -63,9 +63,9 @@ public class MapScript : MonoBehaviour
         {
             if (mapGrid == targetObject)
             {
-                // ƒŠƒXƒg‚©‚çíœ
+                // ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
                 blueGrids.Remove(mapGrid);
-                // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                 BreakObject(targetObject);
                 if(blueGrids.Count < blueLimit)
                 {
@@ -78,9 +78,9 @@ public class MapScript : MonoBehaviour
         {
             if (mapGrid == targetObject)
             {
-                // ƒŠƒXƒg‚©‚çíœ
+                // ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
                 greenGrids.Remove(mapGrid);
-                // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                 BreakObject(targetObject);
                 if(greenGrids.Count < greenLimit)
                 {
@@ -93,9 +93,9 @@ public class MapScript : MonoBehaviour
         {
             if (mapGrid == targetObject)
             {
-                // ƒŠƒXƒg‚©‚çíœ
+                // ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
                 yellowGrids.Remove(mapGrid);
-                // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                 BreakObject(targetObject);
                 if(yellowGrids.Count < yellowLimit)
                 {
@@ -118,7 +118,7 @@ public class MapScript : MonoBehaviour
                     {
                         if (mapGrid == targetObjects[i])
                         {
-                            // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                            // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                             BreakObject(targetObjects[i]);
                             break;
                         }
@@ -133,7 +133,7 @@ public class MapScript : MonoBehaviour
                     {
                         if (mapGrid == targetObjects[i])
                         {
-                            // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                            // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                             BreakObject(targetObjects[i]);
                             break;
                         }
@@ -148,7 +148,7 @@ public class MapScript : MonoBehaviour
                     {
                         if (mapGrid == targetObjects[i])
                         {
-                            // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                            // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                             BreakObject(targetObjects[i]);
                             break;
                         }
@@ -163,9 +163,9 @@ public class MapScript : MonoBehaviour
                     {
                         if (mapGrid == targetObjects[i])
                         {
-                            // ƒŠƒXƒg‚©‚çíœ
+                            // ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
                             yellowGrids.Remove(mapGrid);
-                            // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğ‰ó‚·
+                            // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å£Šã™
                             BreakObject(targetObjects[i]);
                             break;
                         }
@@ -211,7 +211,7 @@ public class MapScript : MonoBehaviour
                     case MapGrid.State.None:
                         break;
                     case MapGrid.State.RedFloor:
-                        obj = Instantiate(redGrid, gridParent.position - new Vector3(-grid.GetX(), 0f, grid.GetY()), Quaternion.identity, gridParent);// ƒ}ƒXì¬
+                        obj = Instantiate(redGrid, gridParent.position - new Vector3(-grid.GetX(), 0f, grid.GetY()), Quaternion.identity, gridParent);// ãƒã‚¹ä½œæˆ
                         redGrids.Add(obj);
                         break;
                     case MapGrid.State.BlueFloor:
@@ -238,7 +238,7 @@ public class MapScript : MonoBehaviour
         List<MapGrid> grids = new List<MapGrid>();
         for (int i = 0; i < str.Length; i++)
         {
-            MapGrid grid = new MapGrid(i + 1, row + 1, GetStateFromNum(str[i] - '0'));// ’Ç‰Á‚·‚éƒOƒŠƒbƒh‚Ìì¬
+            MapGrid grid = new MapGrid(i + 1, row + 1, GetStateFromNum(str[i] - '0'));// è¿½åŠ ã™ã‚‹ã‚°ãƒªãƒƒãƒ‰ã®ä½œæˆ
             grids.Add(grid);
         }
         return grids;
@@ -246,7 +246,7 @@ public class MapScript : MonoBehaviour
 
     private MapGrid.State GetStateFromNum(int num)
     {
-        if (num < 0 || (MapGrid.State)num >= MapGrid.State.Max)// w’è‚µ‚½ƒ^ƒCƒv‚Ì”ÍˆÍŠO‚Ì‚Æ‚«
+        if (num < 0 || (MapGrid.State)num >= MapGrid.State.Max)// æŒ‡å®šã—ãŸã‚¿ã‚¤ãƒ—ã®ç¯„å›²å¤–ã®ã¨ã
         {
             return MapGrid.State.None;
         }

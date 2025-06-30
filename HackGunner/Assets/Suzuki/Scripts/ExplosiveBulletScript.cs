@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class ExplosiveBulletScript : BulletBaseClass
 {
-    [Header("”š”­”¼Œa"), SerializeField] float explosionRadius;
-    [Header("”š”­‚ÌƒGƒtƒFƒNƒg"), SerializeField] GameObject effect;
+    [Header("çˆ†ç™ºåŠå¾„"), SerializeField] float explosionRadius;
+    [Header("çˆ†ç™ºã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ"), SerializeField] GameObject effect;
     void OnDestroy()
     {
-        // ’eŠÛ‚ª”j‰ó‚³‚ê‚éiƒXƒe[ƒW‚©“G‚ÉÕ“Ë‚µ‚½j‚Æ‚«‚É”š”­
+        // å¼¾ä¸¸ãŒç ´å£Šã•ã‚Œã‚‹ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ã‹æ•µã«è¡çªã—ãŸï¼‰ã¨ãã«çˆ†ç™º
         DamageExplosion();
         GameObject effectObject = Instantiate(effect, transform.position, Quaternion.identity);
     }
 
     void DamageExplosion()
     {
-        // ƒvƒŒƒCƒ„[‚ª”š•—‚ÉŠª‚«‚Ü‚ê‚½‚Æ‚«
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒçˆ†é¢¨ã«å·»ãè¾¼ã¾ã‚ŒãŸã¨ã
         if ((transform.position - TargetManeger.getPlayerObj().transform.position).sqrMagnitude <= explosionRadius * explosionRadius)
         {
             TargetManeger.getPlayerObj().GetComponent<CharacterStatus>().TakeDamage(1f);
         }
-        // “G‚ª”š•—‚ÉŠª‚«‚Ü‚ê‚½‚Æ‚«
+        // æ•µãŒçˆ†é¢¨ã«å·»ãè¾¼ã¾ã‚ŒãŸã¨ã
         List<EnemyBaseClass> hitEnemies = TargetManeger.TakeTarget(transform.position, explosionRadius);
         foreach(EnemyBaseClass enemy in hitEnemies)
         {

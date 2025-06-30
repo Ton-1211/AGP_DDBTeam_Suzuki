@@ -40,11 +40,11 @@ public class WeaponData : BaseData
     [SerializeField] List<BulletSettings> bulletSettings;
     [SerializeField] WeaponRole weaponRole;
     [SerializeField] WeaponType weaponType;
-    [Header("銃の発射SE"), SerializeField] AudioClip shotSound;
+    [Header("驫�縺ｮ逋ｺ蟆ТE"), SerializeField] AudioClip shotSound;
     [SerializeField] Sprite weaponImage;
     [SerializeField] GameObject subWeapon;
 
-    // プロパティ
+    // 繝励Ο繝代ユ繧｣
     public GameObject BulletPrefab
     {
         get { return bulletPrefab; }

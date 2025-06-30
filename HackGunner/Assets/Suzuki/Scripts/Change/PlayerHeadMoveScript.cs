@@ -11,7 +11,7 @@ public class PlayerHeadMoveScript : MonoBehaviour
     CinemachineFramingTransposer framingTransposer;
     float headDistance = 5.0f;
     float playerDistance = 0.3f;
-    uint spinCount = 5;// “ª‚ª’…‚­‚Ü‚Å‚É‰ñ“]‚·‚é‰ñ”
+    uint spinCount = 5;// é ­ãŒç€ãã¾ã§ã«å›è»¢ã™ã‚‹å›æ•°
 
     PlayerDamageEffect damageEffect;
     //GameObject changeTarget;
@@ -21,11 +21,11 @@ public class PlayerHeadMoveScript : MonoBehaviour
     }
 
     /// <summary>
-    /// æ‚èˆÚ‚é‘ÎÛ‚ÉŒü‚©‚Á‚Ä“ª‚ğ“®‚©‚µAæ‚èˆÚ‚é
+    /// ä¹—ã‚Šç§»ã‚‹å¯¾è±¡ã«å‘ã‹ã£ã¦é ­ã‚’å‹•ã‹ã—ã€ä¹—ã‚Šç§»ã‚‹
     /// </summary>
-    /// <param name="start">ŠJn’n“_</param>
-    /// <param name="target">æ‚èˆÚ‚é‘ÎÛ</param>
-    /// <param name="headOffset">“ª‚Ì‚‚³</param>
+    /// <param name="start">é–‹å§‹åœ°ç‚¹</param>
+    /// <param name="target">ä¹—ã‚Šç§»ã‚‹å¯¾è±¡</param>
+    /// <param name="headOffset">é ­ã®é«˜ã•</param>
     /// <returns></returns>
     public IEnumerator MoveHead(Vector3 start, Transform target, Vector3 headOffset, GameObject changeObj, Change change)
     {

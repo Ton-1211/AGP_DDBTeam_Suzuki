@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AppearanceChangeScript : MonoBehaviour
 {
-    // “G‚Ìƒf[ƒ^‚Åƒ}ƒeƒŠƒAƒ‹‚ğİ’è‚·‚é‚©‚àA‚ä‚­‚ä‚­‚ÍƒAƒjƒ[ƒVƒ‡ƒ“‚ğæ‚Á‚Ä‚­‚é—\’è‚¾‚Á‚½
+    // æ•µã®ãƒ‡ãƒ¼ã‚¿ã§ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨­å®šã™ã‚‹ã‹ã‚‚ã€ã‚†ãã‚†ãã¯ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å–ã£ã¦ãã‚‹äºˆå®šã ã£ãŸ
     [SerializeField] Material possessableMaterial;
     [SerializeField] Material deadMaterial;
     
-    public void ChangeMaterialToPossessable(GameObject gameObject)// æ‚èˆÚ‚è‰Â”\ó‘Ô‚ÌF‚Ö‚Ìİ’è
+    public void ChangeMaterialToPossessable(GameObject gameObject)// ä¹—ã‚Šç§»ã‚Šå¯èƒ½çŠ¶æ…‹ã®è‰²ã¸ã®è¨­å®š
     {
         gameObject.GetComponent<MeshRenderer>().material = possessableMaterial;
     }
-    public void ChangeMaterialToDead(GameObject gameObject)// €–Só‘Ô‚ÌF‚Ö‚Ìİ’è
+    public void ChangeMaterialToDead(GameObject gameObject)// æ­»äº¡çŠ¶æ…‹ã®è‰²ã¸ã®è¨­å®š
     {
         gameObject.GetComponent<MeshRenderer>().material = deadMaterial;
     }

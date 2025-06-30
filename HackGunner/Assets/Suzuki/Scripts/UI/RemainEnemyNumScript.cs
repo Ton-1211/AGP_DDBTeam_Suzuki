@@ -15,6 +15,6 @@ public class RemainEnemyNumScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "“Gc”F" + TargetManeger.EnemyList.Count.ToString();
+        text.text = "æ•µæ®‹æ•°ï¼š" + TargetManeger.EnemyList.Count.ToString();
     }
 }

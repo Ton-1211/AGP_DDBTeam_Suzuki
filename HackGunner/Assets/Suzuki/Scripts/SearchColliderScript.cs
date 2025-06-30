@@ -23,7 +23,7 @@ public class SearchColliderScript : MonoBehaviour
     {
         if(!TryGetComponent<ConeCollider>(out coneCollider))
         {
-            Debug.LogWarning("‚±‚ÌƒIƒuƒWƒFƒNƒg‚ÉConeCollider ‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogWarning("ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ConeCollider ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
         }
         player = null;
         inSearchArea = false;
@@ -31,12 +31,12 @@ public class SearchColliderScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Raycast‚ğs‚¤Ä‹NŠÖ”
+    /// Raycastã‚’è¡Œã†å†èµ·é–¢æ•°
     /// </summary>
-    /// <param name="repeat">Raycast‚ğs‚¤‰ñ”</param>
-    /// <param name="target">Target‚ÌˆÊ’uBŒJ‚è•Ô‚·‚²‚Æ‚ÉYÀ•W0.1fã¸</param>
-    /// <param name="hit">RaycastHit‚ÌQÆ“n‚µ</param>
-    /// <returns>Hit‚µ‚½‚©‚ğ•Ô‚·Btrue‚Ìê‡ARaycastHit‚Éî•ñ‚ğŠi”[</returns>
+    /// <param name="repeat">Raycastã‚’è¡Œã†å›æ•°</param>
+    /// <param name="target">Targetã®ä½ç½®ã€‚ç¹°ã‚Šè¿”ã™ã”ã¨ã«Yåº§æ¨™0.1fä¸Šæ˜‡</param>
+    /// <param name="hit">RaycastHitã®å‚ç…§æ¸¡ã—</param>
+    /// <returns>Hitã—ãŸã‹ã‚’è¿”ã™ã€‚trueã®å ´åˆã€RaycastHitã«æƒ…å ±ã‚’æ ¼ç´</returns>
     bool RaycastRepeat(int repeat,Vector3 target,ref RaycastHit hit)
     {
         Vector3 targetDirection = target + Vector3.up * 0.1f;
@@ -62,7 +62,7 @@ public class SearchColliderScript : MonoBehaviour
             */
             RaycastHit hit = new();
             bool raycast = RaycastRepeat(repeatCount, player.position - transform.position,ref hit);
-            if (raycast)// ƒvƒŒƒCƒ„[‚ª‰B‚ê‚Ä‚¢‚È‚¢‚Æ‚«iŒ»İ‚ÍÆË‚µ‚½ˆê“_‚ª’Ê‚é‚©‚Ç‚¤‚©‚Å”»’è‚µ‚Ä‚¢‚éj
+            if (raycast)// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒéš ã‚Œã¦ã„ãªã„ã¨ãï¼ˆç¾åœ¨ã¯ç…§å°„ã—ãŸä¸€ç‚¹ãŒé€šã‚‹ã‹ã©ã†ã‹ã§åˆ¤å®šã—ã¦ã„ã‚‹ï¼‰
             {
                 if (hit.transform.gameObject.tag == "Player")
                 {
@@ -84,7 +84,7 @@ public class SearchColliderScript : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        //if(other.TryGetComponent<PlayerMove>(out PlayerMove playerMove) && playerMove.enabled)// ƒvƒŒƒCƒ„[‚¾‚Á‚½‚Æ‚«
+        //if(other.TryGetComponent<PlayerMove>(out PlayerMove playerMove) && playerMove.enabled)// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã ã£ãŸã¨ã
         if (other.gameObject.tag == "Player")
         {
             inSearchArea = true;
@@ -94,7 +94,7 @@ public class SearchColliderScript : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        //if (other.TryGetComponent<PlayerMove>(out PlayerMove playerMove) && playerMove.enabled)// ƒvƒŒƒCƒ„[‚¾‚Á‚½‚Æ‚«
+        //if (other.TryGetComponent<PlayerMove>(out PlayerMove playerMove) && playerMove.enabled)// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã ã£ãŸã¨ã
         if (other.gameObject.tag == "Player")
         {
             inSearchArea = false;
@@ -102,7 +102,7 @@ public class SearchColliderScript : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì”­Œ©î•ñ‚ğƒŠƒZƒbƒg
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç™ºè¦‹æƒ…å ±ã‚’ãƒªã‚»ãƒƒãƒˆ
     /// </summary>
     public void OnPlayerChange()
     {

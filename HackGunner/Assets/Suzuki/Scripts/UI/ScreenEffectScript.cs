@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class ScreenEffectScript : MonoBehaviour
 {
-    [Header("ƒXƒ[ƒ‚[ƒVƒ‡ƒ“’†‚ÌƒGƒtƒFƒNƒg"), SerializeField] Image slowEffect;
+    [Header("ã‚¹ãƒ­ãƒ¼ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ"), SerializeField] Image slowEffect;
 
     void Update()
     {
-        if(!slowEffect.enabled && PauseManager.IsSlow)// ƒXƒ[‚ªn‚Ü‚Á‚½‚Æ‚«
+        if(!slowEffect.enabled && PauseManager.IsSlow)// ã‚¹ãƒ­ãƒ¼ãŒå§‹ã¾ã£ãŸã¨ã
         {
             slowEffect.enabled = true;
         }
-        if(slowEffect.enabled && !PauseManager.IsSlow)// ƒXƒ[‚ªI‚í‚Á‚½‚Æ‚«
+        if(slowEffect.enabled && !PauseManager.IsSlow)// ã‚¹ãƒ­ãƒ¼ãŒçµ‚ã‚ã£ãŸã¨ã
         {
             slowEffect.enabled = false;
         }

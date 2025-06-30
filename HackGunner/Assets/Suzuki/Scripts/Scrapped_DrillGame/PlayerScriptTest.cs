@@ -13,10 +13,10 @@ public class PlayerScriptTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!TryGetComponent<Rigidbody>(out rb))// RigidBody‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚Æ‚«‚Ì‰‹}ˆ’u
+        if(!TryGetComponent<Rigidbody>(out rb))// RigidBodyãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã‹ã£ãŸã¨ãã®å¿œæ€¥å‡¦ç½®
         {
             gameObject.AddComponent<Rigidbody>();
-            Debug.LogError("Play‚ğ‚â‚ß‚½Œã‚ÉRigidbodyƒRƒ“ƒ|[ƒlƒ“ƒg‚ğƒAƒ^ƒbƒ`‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogError("Playã‚’ã‚„ã‚ãŸå¾Œã«Rigidbodyã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ã‚¢ã‚¿ãƒƒãƒã—ã¦ãã ã•ã„ã€‚");
         }
     }
 
@@ -31,7 +31,7 @@ public class PlayerScriptTest : MonoBehaviour
         if(context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
         {
             moveVector = context.ReadValue<Vector2>();
-            moveVector.Normalize();// Î‚ßˆÚ“®‚ª‘‚­‚È‚ç‚È‚¢‚æ‚¤‚É
+            moveVector.Normalize();// æ–œã‚ç§»å‹•ãŒæ—©ããªã‚‰ãªã„ã‚ˆã†ã«
         }
         if(context.phase == InputActionPhase.Canceled)
         {
@@ -55,7 +55,7 @@ public class PlayerScriptTest : MonoBehaviour
     private void Move()
     {
         rb.AddForce(new Vector3(moveVector.x , 0f, moveVector.y) * speed, ForceMode.Impulse);
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, moveVector.magnitude * speed);// ˆÚ“®‘¬“x‚Ì§ŒÀ
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, moveVector.magnitude * speed);// ç§»å‹•é€Ÿåº¦ã®åˆ¶é™
     }
-    // ƒeƒXƒg
+    // ãƒ†ã‚¹ãƒˆ
 }

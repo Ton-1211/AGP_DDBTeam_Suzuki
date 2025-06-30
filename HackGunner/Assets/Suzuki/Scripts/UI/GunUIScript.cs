@@ -7,8 +7,8 @@ using TMPro;
 
 public class GunUIScript : MonoBehaviour
 {
-    [Tooltip("c’e”‚ÌƒeƒLƒXƒg"),SerializeField] TMP_Text remainBulletText;
-    [Header("e‚ÌƒAƒCƒRƒ“"), SerializeField] Image gunIcon;
+    [Tooltip("æ®‹å¼¾æ•°ã®ãƒ†ã‚­ã‚¹ãƒˆ"),SerializeField] TMP_Text remainBulletText;
+    [Header("éŠƒã®ã‚¢ã‚¤ã‚³ãƒ³"), SerializeField] Image gunIcon;
     [SerializeField] PlayerMove player;
     // Start is called before the first frame update
     void Start()
@@ -19,12 +19,12 @@ public class GunUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        remainBulletText.SetText("Remain:{0}", player.Gun.RemainBullets);// c’e”‚Ì•\¦
-        if(player.Gun.RemainBullets == 0)// c’e‚ª0‚Ì‚Æ‚«
+        remainBulletText.SetText("Remain:{0}", player.Gun.RemainBullets);// æ®‹å¼¾æ•°ã®è¡¨ç¤º
+        if(player.Gun.RemainBullets == 0)// æ®‹å¼¾ãŒ0ã®ã¨ã
         {
             remainBulletText.color = Color.red;
         }
-        else if(remainBulletText.color == Color.red)// c’e‚ª0‚©‚ç‰ñ•œ‚µ‚½‚Æ‚«i•ŠíØ‚è‘Ö‚¦‚âæ‚èˆÚ‚èj
+        else if(remainBulletText.color == Color.red)// æ®‹å¼¾ãŒ0ã‹ã‚‰å›å¾©ã—ãŸã¨ãï¼ˆæ­¦å™¨åˆ‡ã‚Šæ›¿ãˆæ™‚ã‚„ä¹—ã‚Šç§»ã‚Šæ™‚ï¼‰
         {
             remainBulletText.color = Color.white;
         }
