@@ -30,8 +30,9 @@ public class SearchColliderScript : MonoBehaviour
         findPlayer = false;
     }
 
+    // ここは鈴木の作業範囲ではない（付け足されていた）
     /// <summary>
-    /// Raycastを行う再起関数
+    /// Raycastを行う再帰関数
     /// </summary>
     /// <param name="repeat">Raycastを行う回数</param>
     /// <param name="target">Targetの位置。繰り返すごとにY座標0.1f上昇</param>
@@ -50,7 +51,8 @@ public class SearchColliderScript : MonoBehaviour
             return RaycastRepeat(repeat - 1, targetDirection,ref hit);
         }
     }
-
+    // ここまで
+    
     void FixedUpdate()
     {
         if (inSearchArea && player != null)
@@ -110,3 +112,4 @@ public class SearchColliderScript : MonoBehaviour
         player = null;
     }
 }
+
