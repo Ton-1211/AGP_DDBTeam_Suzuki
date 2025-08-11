@@ -4,47 +4,57 @@ using UnityEngine;
 using Cinemachine;
 public class PlayerHeadMoveScript : MonoBehaviour
 {
+    const float HeadDistance = 5.0f;
+    const float PlayerCameraDistance = 0.3f;
+    const uint SpinCount = 5;// 頭が着くまでに回転する回数
+    const int FullRotationDegrees = 360;
+    const float WaitAfterHeadChanged = 0.5f;
+
     [SerializeField] float moveSpeed = 10f;
 
     CinemachineVirtualCamera virtualCamera;
 
     CinemachineFramingTransposer framingTransposer;
-    float headDistance = 5.0f;
-    float playerDistance = 0.3f;
-    uint spinCount = 5;// 頭が着くまでに回転する回数
+    float headDistance = HeadDistance;
+    float playerCameraDistance = PlayerCameraDistance;
 
     PlayerDamageEffect damageEffect;
-    //GameObject changeTarget;
+    MeshRenderer meshRenderer;
+
     void Start()
     {
-        Debug.Log("Start");
+        meshRenderer= gameObject.GetComponent<MeshRenderer>();
     }
-
     /// <summary>
     /// 乗り移る対象に向かって頭を動かし、乗り移る
     /// </summary>
     /// <param name="start">開始地点</param>
     /// <param name="target">乗り移る対象</param>
     /// <param name="headOffset">頭の高さ</param>
-    /// <returns></returns>
+    /// <param name="changeObj">乗り移る対象のオブジェクト</param>
+    /// <param name ="change">乗り移りを行うスクリプト</param>
+    /// <returns>処理が完了するまでのコルーチン</returns>
     public IEnumerator MoveHead(Vector3 start, Transform target, Vector3 headOffset, GameObject changeObj, Change change)
     {
         damageEffect = GameObject.FindObjectOfType<PlayerDamageEffect>();
-        damageEffect.Reset();
+        damageEffect.Reset();// HPが減っているときのエフェクトを消す
 
         transform.LookAt(target);
         SetCameraTarget(transform, headDistance);
 
-        float totalTime = Vector3.Distance(start, target.position) / moveSpeed;
-        float rotate = 360 * spinCount / totalTime;
+        float totalTime = Vector3.Distance(start, target.position) / moveSpeed;// 開始地点からターゲットまでの移動にかかる時間
+        float rotate = FullRotationDegrees * SpinCount / totalTime;// 1秒あたりの回転量(度)
         float timer = 0f;
 
-        while(timer < totalTime)
+        // 頭を目標地点まで飛ばす
+        while (timer < totalTime)
         {
+            // ポーズ中
             if (!PauseManager.IsPaused)
             {
                 timer += Time.unscaledDeltaTime;
 
+                // 移動と回転を行う
                 Vector3 position = Vector3.Lerp(start, target.position, timer / totalTime);
                 transform.position = position + headOffset;
                 transform.Rotate(new Vector3(0f, 1f, 0f) * rotate * Time.unscaledDeltaTime, Space.World);
@@ -52,44 +62,34 @@ public class PlayerHeadMoveScript : MonoBehaviour
             yield return null;
         }
 
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        CharacterStatus targetStatus = changeObj.GetComponent<CharacterStatus>();
-        targetStatus.OnPossess();
-        TargetManeger.PlayerStatus.CharacterAnimator.updateMode = AnimatorUpdateMode.Normal;
+        // 頭が到達したあと
+        meshRenderer.enabled = false;// 飛ばす演出用の頭を見えなくする
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        CharacterStatus targetStatus = changeObj.GetComponent<CharacterStatus>();// ステータスを取得
+        targetStatus.OnPossess();// プレイヤーのステータスに切り替える
 
-        //if (TargetManeger.getPlayerObj().TryGetComponent<Animator>(out Animator playerAnimator))
-        //{
-        //    playerAnimator.SetBool("Change", false);
-        //}
-        //changeTarget = changeObj;
-        TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", false);
+        TargetManeger.PlayerStatus.CharacterAnimator.updateMode = AnimatorUpdateMode.Normal;// アニメーションの再生モードを切り替え
+
+        yield return new WaitForSecondsRealtime(WaitAfterHeadChanged);// アニメーション開始までに待機（ゲームスピードに関係ない秒数で待機するようにしている）
+
+        TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", false);// 乗り移り後のアニメーションを再生
+
+        // カメラを乗り移り後の敵にフォーカス
         change.ChangeCameraTarget(changeObj);
-        SetCameraTarget(change.gameObject.transform, playerDistance);
-        Destroy(gameObject);
-    }
+        SetCameraTarget(change.gameObject.transform, playerCameraDistance);
 
-    //public void ReturnCameraTarget(Change change)
-    //{
-    //    if (changeTarget != null)
-    //    {
-    //        change.ChangeCameraTarget(changeTarget);
-    //        ChangeCameraTarget(change.gameObject.transform, playerDistance);
-    //        Destroy(gameObject);
-    //    }
-    //}
+        Destroy(gameObject);// 飛ばす演出用の頭を消去
+    }
 
     void SetCameraTarget(Transform target,float distance)
     {
-        Debug.Log("target:" + target.name);
+        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();// VirtualCamera（ポインタ）を取得
 
-        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();// FramingTransposer（ポインタ）を取得
 
-        framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-
-        virtualCamera.Follow = target;
-        virtualCamera.LookAt = target;
-        framingTransposer.m_CameraDistance = distance;
+        // 取得したポインタの中身を変更
+        virtualCamera.Follow = target;// カメラの追尾先を変更
+        virtualCamera.LookAt = target;// 〃の注目先を変更
+        framingTransposer.m_CameraDistance = distance;// 〃のカメラ距離を変更
     }
 }

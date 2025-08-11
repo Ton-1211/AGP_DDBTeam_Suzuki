@@ -5,8 +5,8 @@ using UnityEngine;
 
 [Serializable] public class BulletSettings
 {
-    [SerializeField] Vector2 diffusion;
-    [Range(0,1),SerializeField] float randomNess = 0f;
+    [Header("弾丸の拡散"), SerializeField] Vector2 diffusion;
+    [Header("拡散のランダム性"), Range(0,1),SerializeField] float randomNess = 0f;
 
     public Vector2 Diffusion
     {

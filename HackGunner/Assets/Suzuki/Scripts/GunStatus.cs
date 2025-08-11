@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GunStatus : MonoBehaviour
 {
+    const float DiffusionRateMax = 1f;
+    const float DiffusionZ = 0f;
+    
     [SerializeField] WeaponData weaponData;
 
     [UnityEngine.Serialization.FormerlySerializedAs("firstShotIntarval")][SerializeField] float firstShotInterval = 2f;
@@ -21,9 +24,10 @@ public class GunStatus : MonoBehaviour
     public bool IsSubWeapon => weaponData.SubWeapon == null;
     public WeaponData.WeaponType WeaponType => weaponData.Type;
 
+    bool CanShoot => remainBullets > 0;// 撃てる状態か（残弾数が0より多いか）
     void Start()
     {
-        FillBullet();
+        FillBullet();// 最初は弾丸数を最大にする
     }
     /// <summary>
     /// 銃から発射方向を向いた銃弾を生成する
@@ -32,24 +36,26 @@ public class GunStatus : MonoBehaviour
     /// <returns>撃てたかどうかを返す</returns>
     public bool Shoot(Vector3 position, Vector3 forward, string tag, bool infiniteBullet)
     {
-        if(remainBullets <= 0 && !infiniteBullet) return false;// 残弾数が残っていないときは射撃しない（無限に撃てる状態の時を除く）
+        if(!CanShoot && !infiniteBullet) return false;// 残弾数が残っていないときは射撃しない（無限に撃てる状態の時を除く）
         if(!infiniteBullet) remainBullets--;
 
         for (int i = 0; i < weaponData.BulletSettings.Count; i++)
         {
-            GameObject bullet = Instantiate(weaponData.BulletPrefab, position, Quaternion.identity);
+            GameObject bullet = Instantiate(weaponData.BulletPrefab, position, Quaternion.identity);// 弾丸を生成
 
-            Vector3 diffusion = new Vector3(weaponData.BulletSettings[i].Diffusion.x * Random.Range(1 - weaponData.BulletSettings[i].RandomNess, 1),
-                weaponData.BulletSettings[i].Diffusion.y * Random.Range(1 - weaponData.BulletSettings[i].RandomNess, 1), 0f);
+            // 拡散を計算
+            Vector3 diffusion = new Vector3(weaponData.BulletSettings[i].Diffusion.x * Random.Range(DiffusionRateMax - weaponData.BulletSettings[i].RandomNess, DiffusionRateMax),
+                weaponData.BulletSettings[i].Diffusion.y * Random.Range(DiffusionRateMax - weaponData.BulletSettings[i].RandomNess, DiffusionRateMax), DiffusionZ);
 
-            bullet.tag = tag == "Player" ? "PlayerBullet" : "EnemyBullet";
-            bullet.transform.forward = forward;
-            bullet.transform.Rotate(diffusion);
+            bullet.tag = tag == "Player" ? "PlayerBullet" : "EnemyBullet";// 発射された弾丸がどちらの陣営かを設定
+            bullet.transform.forward = forward;// 正面方向を設定
+            bullet.transform.Rotate(diffusion);// 拡散の適用
         }
         SR_SoundController.instance.PlaySEOnce(weaponData.ShotSound, transform);// 銃声を鳴らす
-        if (remainBullets == 0 && weaponData.Role == WeaponData.WeaponRole.Main)
+        // 弾切れ時のサブ武器への切り替え
+        if (!CanShoot && weaponData.Role == WeaponData.WeaponRole.Main)
         {
-            ChangeWeapon();
+            ChangeWeapon();// サブ武器へと切り替える
         }
         return true;
     }

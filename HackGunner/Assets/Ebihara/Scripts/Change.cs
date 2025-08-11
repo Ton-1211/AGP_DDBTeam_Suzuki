@@ -66,11 +66,16 @@ public class Change : MonoBehaviour
         //Debug.Log("乗り移る敵:" + changeObj.name);
         Debug.Log("Change");
 
-        // 頭を飛ばしてからカメラ変更
+        // ==================================================
+        // 担当：鈴木十音
+        // 概要：頭を飛ばしたあとでのカメラ変更
+        // ==================================================
+        
         if (!changing)
         {
             StartCoroutine(DelayInstantiateHeadAndShoot(0.3f, changeObj));
         }
+        // ===== ここまで =====
     }
 
     public void ChangeCameraTarget(GameObject changeObj)
@@ -103,17 +108,29 @@ public class Change : MonoBehaviour
         enemyManager.ResetSearch(playerMove.transform.position);
         changeObj = null;
 
-        //if (targetManeger != null)
-        TargetManeger.SetTarget(this.transform.parent.gameObject);
+        // ==================================================
+        // 担当：鈴木十音
+        // 概要：敵の狙う先の設定や、乗り移り中のUIやフラグの設定
+        // ==================================================
+
+        TargetManeger.SetTarget(this.transform.parent.gameObject);// 敵のターゲットを変更
+
+        // UIの設定
         barUI.AnimatorHPBarRemove();
         gunsUI.AnimatorSetHead();
         if (!changed)
         {
-            StartCoroutine(SetChangedTrueForSeconds(0.2f));
+            StartCoroutine(SetChangedTrueForSeconds(0.2f));// フラグの設定
         }
         changing = false;
+        // ===== ここまで =====
     }
+    // ==================================================
+    // 担当：鈴木十音
+    // 概要：乗り移り後のフラグ設定や頭を投げての乗り移り機能
+    // ==================================================
 
+    // 頭が到着したあとにアニメーションで時間を合わせて動作させるため、フラグを一定時間立てている
     IEnumerator SetChangedTrueForSeconds(float second)
     {
         changed = true;
@@ -121,7 +138,13 @@ public class Change : MonoBehaviour
         changed = false;
     }
 
-    IEnumerator DelayInstantiateHeadAndShoot(float delaySeconds,GameObject changeObj)
+    /// <summary>
+    /// 一定時間後に頭を投げ、乗り移りを行う
+    /// </summary>
+    /// <param name="delaySeconds">頭を投げるまでの時間</param>
+    /// <param name="changeObj">乗り移り先</param>
+    /// <returns>処理が完了するまでのコルーチン</returns>
+    IEnumerator DelayInstantiateHeadAndShoot(float delaySeconds, GameObject changeObj)
     {
 
         sound.PlaySEOnce(PlayerDamageClip);
@@ -137,4 +160,5 @@ public class Change : MonoBehaviour
         PlayerHeadMoveScript playerHeadMoveScript = Instantiate(playerHead, transform.position + new Vector3(0f, -10f, 0f), Quaternion.identity).GetComponent<PlayerHeadMoveScript>();// プレイヤーの頭の位置からの生成に変更予定
         yield return StartCoroutine(playerHeadMoveScript.MoveHead(transform.position, characterStatus.transform, new Vector3(0f, 1.3f, 0f), changeObj, this));
     }
+    // ===== ここまで =====
 }

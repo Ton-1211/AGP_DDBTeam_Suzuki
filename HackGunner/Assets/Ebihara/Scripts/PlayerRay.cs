@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class PlayerRay : MonoBehaviour
 {
+    const float ChangeCastRadius = 0.4f;
+    const float ChangeCheckRayOffset = 0.5f;
     [SerializeField] Change change;
     [SerializeField] float distance = 50.0f;//���o�\�ȋ���
     [SerializeField] LayerMask gazeHitMask;
@@ -59,26 +61,19 @@ public class PlayerRay : MonoBehaviour
 
     public GameObject GetObj() { return game; }
 
+    // ==================================================
+    // 担当：鈴木十音
+    // 概要：乗り移り機能・武器の射撃機能・射撃フラグの設定
+    // ==================================================
+
+    /// <summary>
+    /// ボタンを押されたときの乗り移り処理
+    /// </summary>
+    /// <param name="context">該当キーやボタンの押されている等の情報</param>
     public void Change(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            //var center = transform.position;
-
-            //// CapsuleCast�ɂ�铖���蔻��
-            //var isHit = Physics.CapsuleCast(
-            //    center + new Vector3(0, 0.5f, 0), // �n�_
-            //    center + new Vector3(0, -0.5f, 0), // �I�_
-            //    0.5f, // �L���X�g���镝
-            //    Vector3.forward, // �L���X�g����
-            //    out var hit // �q�b�g���
-            //);
-
-            //if (isHit == true)
-            //{
-            //    game = hit.collider.GameObject();
-            //    change.ChangeEnemy(game);
-            //}
             //rayの始まり
             var rayStartPosition = this.transform.position;
 
@@ -87,104 +82,60 @@ public class PlayerRay : MonoBehaviour
 
             //Hitしたオブジェクト格納
             RaycastHit raycastHit;
-            RaycastHit[] hits = Physics.SphereCastAll(rayStartPosition, 0.4f, rayDirection, distance);
+            RaycastHit[] hits = Physics.SphereCastAll(rayStartPosition, ChangeCastRadius, rayDirection, distance);
 
             Debug.DrawRay(rayStartPosition, rayDirection * distance, Color.red);
 
-            foreach(RaycastHit hit in hits)
+            foreach (RaycastHit hit in hits)
             {
                 // 操作中のキャラクターでなくて視点の通る、HPが0のキャラクター
-                if(TargetManeger.getPlayerObj() != hit.transform.gameObject && !Physics.Raycast(rayStartPosition, hit.transform.position + Vector3.up * 0.5f - rayStartPosition, Vector3.Distance(hit.transform.position, rayStartPosition), LayerMask.GetMask("Stage", "Destructive")) 
+                if (TargetManeger.getPlayerObj() != hit.transform.gameObject && !Physics.Raycast(rayStartPosition, hit.transform.position + Vector3.up * ChangeCheckRayOffset - rayStartPosition, Vector3.Distance(hit.transform.position, rayStartPosition), LayerMask.GetMask("Stage", "Destructive"))
                     && hit.transform.TryGetComponent<CharacterStatus>(out CharacterStatus status) && status.CanPossess)
                 {
-                    game = hit.collider.gameObject;
-                    change.ChangeEnemy(game);
+                    character = hit.collider.gameObject;
+                    change.ChangeEnemy(character);// 乗り移り処理
 
-                    TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", true);
+                    TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", true);// 乗り移り前に操作していたキャラクターの頭を投げるアニメーションを再生
                     break;
                 }
             }
-
-            //if (Physics.SphereCast(rayStartPosition, 0.4f, rayDirection, out raycastHit, distance)/* && raycastHit.collider.tag == "Enemy"*/)
-            //{
-            //    if (!raycastHit.transform.TryGetComponent<CharacterStatus>(out CharacterStatus status)) return; if (!status.CanPossess) return;// 乗り移れるかどうか
-            //    game = raycastHit.collider.gameObject;
-            //    change.ChangeEnemy(game);
-
-            //    TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Change", true);
-            //}
         }
     }
 
+    /// <summary>
+    /// ボタンを押されたときの射撃処理
+    /// </summary>
+    /// <param name="context">該当キーやボタンの押されている等の情報</param>
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (PauseManager.IsPaused || change.Changing == true) return;
+        if (PauseManager.IsPaused || change.Changing == true) return;// ポーズ中や乗り移り中は行わない
         if (context.phase == InputActionPhase.Performed)
         {
             // PlayerMoveに飛ばして弾を出す
             playerMove.Gun.Shoot(transform.position, playerMove.Gun.transform.forward, "Player", false);
             if (!shoot)
             {
-                StartCoroutine(SetShootTrueForSeconds(0.2f));
+                StartCoroutine(SetShootTrueForSeconds(0.2f));// 他のキャラクターがプレイヤーの射撃を検知するためのフラグを設定
                 // Animatorに渡す
-                TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", true);
-            }
-        }
-        if(context.phase == InputActionPhase.Canceled)
-        {
-            TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", false);
-        }
-    }
-
-    public void CheckCanPossess(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            //rayの始まり
-            var rayStartPosition = this.transform.position;
-
-            //rayの方向
-            var rayDirection = this.transform.forward.normalized;
-
-            //Hitしたオブジェクト格納
-            RaycastHit raycastHit;
-
-            Debug.DrawRay(rayStartPosition, rayDirection * distance, Color.red);
-
-            if (Physics.Raycast(rayStartPosition, rayDirection, out raycastHit, distance))
-            {
-                //Debug.Log(context.phase);
-                Debug.Log("HitObject : " + raycastHit.collider.gameObject.name);
-
-                if (raycastHit.collider.tag == "Enemy")
-                {
-                    if (raycastHit.collider.TryGetComponent<CharacterStatus>(out CharacterStatus character) && character.CanPossess)
-                    {
-                        Debug.Log("EnemyHit");
-                        transforms = raycastHit.transform;
-                        game = raycastHit.collider.gameObject;
-                    }
-                }
+                TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", true);// 射撃アニメーションの再生
             }
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            transforms = null;
-            game = null;
+            TargetManeger.PlayerStatus.CharacterAnimator.SetBool("Fire", false);// 射撃アニメーションの中断
         }
     }
 
+    /// <summary>
+    /// 一定時間プレイヤーが射撃していたというフラグをオンにする（他のキャラクターが受け取れるように）
+    /// </summary>
+    /// <param name="second">オンにしておく時間</param>
+    /// <returns>処理が完了するまでのコルーチン</returns>
     IEnumerator SetShootTrueForSeconds(float second)
     {
         shoot = true;
         yield return new WaitForSeconds(second);
         shoot = false;
     }
-
-    //void SetAnimator()
-    //{
-    //    if (playerAnimator != null && playerAnimator.gameObject != null &&
-    //        playerAnimator.gameObject == TargetManeger.getPlayerObj()) return;// きちんと設定されている（変更がない）なら再取得しない
-    //    TargetManeger.getPlayerObj().TryGetComponent<Animator>(out playerAnimator);
-    //}
+    // ===== ここまで =====
 }

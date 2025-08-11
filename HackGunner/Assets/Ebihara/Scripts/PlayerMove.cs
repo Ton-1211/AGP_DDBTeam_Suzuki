@@ -8,6 +8,8 @@ using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
+    const float GroundCheckDistance = 0.5f;
+    const Vector3 JumpVector = (0f, 1.4f, 0f);
     Vector2 input, inputR;
 
     float moveZ;
@@ -91,7 +93,7 @@ public class PlayerMove : MonoBehaviour
             velocity = new Vector3(moveX, 0, moveZ).normalized * moveSpeed * deltaTime;
             playerParent.transform.Translate(velocity.x, velocity.y, velocity.z);
         }
-        if(isWalking)
+        if (isWalking)
         {
             PlayWalkSound();
         }
@@ -102,70 +104,47 @@ public class PlayerMove : MonoBehaviour
         playerParent = gameObject;
     }
 
+    // =========================================
+    // 担当：鈴木十音
+    // 概要：歩行と地面についている間のジャンプ機能
+    // =========================================
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (PauseManager.IsPaused) return;
+        if (PauseManager.IsPaused) return;// ポーズ中や乗り移り中は歩かない
         input = context.ReadValue<Vector2>();
 
-        if (context.phase == InputActionPhase.Started) isWalking = true;
-        if (context.phase == InputActionPhase.Canceled) isWalking = false;
+        if (context.phase == InputActionPhase.Started) isWalking = true;    // 歩きのフラグをオンに設定
+        if (context.phase == InputActionPhase.Canceled) isWalking = false;  // 歩きのフラグをオフに設定
         //Debug.Log(input);
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (PauseManager.IsPaused) return;
-        if (Physics.Raycast(playerParent.transform.position, Vector3.down, 0.5f, LayerMask.GetMask("Stage")))
+        if (PauseManager.IsPaused) return;// ポーズ中や乗り移り中はジャンプしない
+        if (Physics.Raycast(playerParent.transform.position, Vector3.down, GroundCheckDistance, LayerMask.GetMask("Stage")))// 足元にジャンプできる地面があるとき
         {
-            playerParent.GetComponent<Rigidbody>().AddForce(0f, 1.4f, 0f, ForceMode.Impulse);
+            playerParent.GetComponent<Rigidbody>().AddForce(JumpVector, ForceMode.Impulse);
         }
     }
+    // ===== ここまで =====
+
     public void ChangeAim(InputAction.CallbackContext context)
     {
-        //Vector3 angle = this.transform.parent.localEulerAngles;
 
         if (isAiming == false)
         {
             isAiming = true;
-            //Debug.Log("before:" + aimCamera.transform.eulerAngles);     
-            //aimCamera.transform.localEulerAngles = angle;
-            //Debug.Log("after:" + aimCamera.transform.eulerAngles);
             inputProvider.XYAxis = aim;
-
-            //transposer.m_CameraDistance = aimDistance;//徐々に近づけるようにする
-
-            //aimCamera.Priority = 1;
-            //lookCamera.Priority = 0;
         }
         else
         {
             isAiming = false;
-            //Debug.Log("before:" + aimCamera.transform.eulerAngles);
-            //lookCamera.transform.localEulerAngles = angle;
-            //Debug.Log("after:" + aimCamera.transform.eulerAngles);
             inputProvider.XYAxis = look;
-            //transposer.m_CameraDistance = lookDistance;
-            //lookCamera.Priority = 1;
-            //aimCamera.Priority = 0;
         }
     }
 
-    //public void ChangeMode(InputAction.CallbackContext context)
-    //{
-    //    if (isChangeMode == false)
-    //    {
-    //        isChangeMode= true;
-    //        transposer.m_CameraDistance = tpsDistance;
-    //    }
-    //    else
-    //    {
-    //        isChangeMode= false;
-    //        transposer.m_CameraDistance = fpsDistance;
-    //    }
-    //}
-
     public void OnLook(InputAction.CallbackContext context)
     {
-        if(PauseManager.IsPaused) return;
+        if (PauseManager.IsPaused) return;
         inputR = context.ReadValue<Vector2>();
         //Debug.Log("Look");
     }
@@ -201,22 +180,30 @@ public class PlayerMove : MonoBehaviour
             objParent = null;
         }
     }
-
+    // =========================================
+    // 担当：鈴木十音
+    // 概要：持っている銃の設定と、歩行音の再生
+    // =========================================
     public void SetGunObject()
     {
-        gun = playerParent.GetComponentInChildren<GunStatus>();
+        gun = playerParent.GetComponentInChildren<GunStatus>();// キャラクターの持っている銃を設定
     }
 
+    /// <summary>
+    /// 歩行音を鳴らす
+    /// </summary>
     void PlayWalkSound()
     {
-        walkSoundTimer -= Time.unscaledDeltaTime;
+        walkSoundTimer -= Time.unscaledDeltaTime;// スローモーション中でも鳴らす間隔を変えないように
         if (walkSoundTimer <= 0f)
         {
-            if (Physics.Raycast(playerParent.transform.position, Vector3.down, 0.5f, LayerMask.GetMask("Stage")))
+            // 地面についているときに鳴らす
+            if (Physics.Raycast(playerParent.transform.position, Vector3.down, GroundCheckDistance, LayerMask.GetMask("Stage")))
             {
-                SR_SoundController.instance.PlaySEOnce(walkSound, transform);
-                walkSoundTimer = walkSoundTimerMax;
+                SR_SoundController.instance.PlaySEOnce(walkSound, transform);// 歩行音の再生
+                walkSoundTimer = walkSoundTimerMax;// 再度鳴るまでの時間を設定
             }
         }
     }
+    // ===== ここまで =====
 }

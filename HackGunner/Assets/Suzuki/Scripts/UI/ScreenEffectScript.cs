@@ -11,11 +11,11 @@ public class ScreenEffectScript : MonoBehaviour
     {
         if(!slowEffect.enabled && PauseManager.IsSlow)// スローが始まったとき
         {
-            slowEffect.enabled = true;
+            slowEffect.enabled = true;// エフェクトを有効化
         }
         if(slowEffect.enabled && !PauseManager.IsSlow)// スローが終わったとき
         {
-            slowEffect.enabled = false;
+            slowEffect.enabled = false;// エフェクトを無効化
         }
     }
 }

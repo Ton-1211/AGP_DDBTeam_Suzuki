@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterStatus : MonoBehaviour
 {
+    const float LaunchPower = 18f;
     [SerializeField] CharacterData characterData;
     [Header("プレイヤーが乗り移った際に使用するデータ"), SerializeField] CharacterData playerData;
 
@@ -26,21 +27,21 @@ public class CharacterStatus : MonoBehaviour
 
     virtual protected void Update()
     {
-        SearchAnimator();
+        SearchAnimator();// アニメーターが変更されているか調べ、変更されていたら再設定
         if(damageTimer > 0f)
         {
-            damageTimer -= Time.deltaTime;
+            damageTimer -= Time.deltaTime;// 被ダメージ後の無敵時間を減少
         }
     }
 
     public void StartSetUp()
     {
-        SetHpMax();
+        SetHpMax();// HPを最大にする
         TryGetComponent<Animator>(out animator);
         damageTimer = 0f;
         if(tag == "Player")
         {
-            possessed = true;
+            possessed = true;// すでに取り憑かれていると設定（取り憑いた後のHPを記録するため）
         }
     }
 
@@ -54,21 +55,22 @@ public class CharacterStatus : MonoBehaviour
         if(hp <= 0f)
         {
             hp = 0f;
-            if(launch && TryGetComponent<Rigidbody>(out Rigidbody rb))
+            // 吹き飛ばす攻撃で倒された場合
+            if (launch && TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
-                rb.AddForce(Vector3.up * 18f, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * LaunchPower, ForceMode.Impulse);// 打ち上げる
             }
         }
 
         if(gameObject.tag == "Player")
         {
-            damageTimer = characterData.ImmunityTime;
+            damageTimer = characterData.ImmunityTime;// 無敵時間を設定
         }
 
         if (tag == "Player" && !IsDead) return;// 乗り移ったあとにドラム缶の爆発に当たると立ち上がってしまうため
         if (animator != null)
         {
-            animator.SetBool("Dead", IsDead);
+            animator.SetBool("Dead", IsDead);// 死亡時アニメーションを再生
         }
     }
 
@@ -76,9 +78,9 @@ public class CharacterStatus : MonoBehaviour
     {
         if(!possessed)// 初回取り憑きのとき
         {
-            characterData = playerData;
-            SetHpMax();
-            possessed = true;
+            characterData = playerData;// プレイヤー用のステータスへと変更
+            SetHpMax();// HPを最大にする
+            possessed = true;// 取り付いたフラグを設定（取り憑いた後のHPを記録するため）
         }
 
         animator.SetBool("Dead", IsDead);
