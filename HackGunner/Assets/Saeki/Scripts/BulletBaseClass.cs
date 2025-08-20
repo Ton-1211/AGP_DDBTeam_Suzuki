@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletBaseClass : MonoBehaviour
 {
     const float OffsetY = 0.5f;
-    const Vector3 RotateEuler = (90, 0, 0);
+    static readonly Vector3 RotateEuler = (90, 0, 0);
     const float PlayerDamage = 1f;
     const float HitRadius = 0.3f;
 

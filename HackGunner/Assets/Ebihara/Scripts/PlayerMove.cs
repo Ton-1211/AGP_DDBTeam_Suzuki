@@ -9,7 +9,7 @@ using TMPro;
 public class PlayerMove : MonoBehaviour
 {
     const float GroundCheckDistance = 0.5f;
-    const Vector3 JumpVector = (0f, 1.4f, 0f);
+    static readonly Vector3 JumpVector = (0f, 1.4f, 0f);
     Vector2 input, inputR;
 
     float moveZ;
